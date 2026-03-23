@@ -1,0 +1,977 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Theirvoices - A digital platform empowering African women and marginalized minorities in music creation, education, and monetization.">
+  <title>Theirvoices - Empowering African Women in Music</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=Oswald:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --sage: #B9E08E;
+      --cream: #F6F3EA;
+      --coral: #D13B3B;
+      --dark: #111111;
+      --graytext: #3F3F3F;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--sage);
+      color: var(--dark);
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+    }
+
+    .micro-label {
+      font-family: 'Oswald', sans-serif;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--graytext);
+    }
+
+    /* Navigation */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      padding: 1rem 4vw;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: background 0.3s ease;
+    }
+
+    nav.scrolled {
+      background: rgba(185, 224, 142, 0.95);
+      backdrop-filter: blur(10px);
+    }
+
+    .logo {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 1.25rem;
+      color: var(--dark);
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    .nav-links a {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 500;
+      font-size: 0.875rem;
+      color: var(--dark);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--coral);
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.5rem;
+      background: var(--coral);
+      color: white;
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 600;
+      font-size: 0.875rem;
+      border-radius: 6px;
+      text-decoration: none;
+      transition: transform 0.2s, box-shadow 0.2s;
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(209, 59, 59, 0.3);
+    }
+
+    .btn-text {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 500;
+      font-size: 0.875rem;
+      color: var(--dark);
+      text-decoration: none;
+    }
+
+    .btn-text:hover {
+      text-decoration: underline;
+    }
+
+    /* Sections */
+    section {
+      min-height: 100vh;
+      padding: 6rem 4vw;
+      display: flex;
+      align-items: center;
+      position: relative;
+    }
+
+    /* Hero Section */
+    .hero {
+      background: var(--sage);
+      padding-top: 8rem;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4vw;
+      max-width: 1400px;
+      margin: 0 auto;
+      width: 100%;
+      align-items: center;
+    }
+
+    .hero-image {
+      position: relative;
+      height: 70vh;
+      overflow: hidden;
+      box-shadow: 0 18px 40px rgba(0,0,0,0.1);
+    }
+
+    .hero-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .hero-content {
+      position: relative;
+      padding: 2rem 0;
+    }
+
+    .hero-micro {
+      position: absolute;
+      top: 0;
+      right: 0;
+    }
+
+    .hero h1 {
+      font-size: clamp(44px, 5vw, 78px);
+      margin-bottom: 1.5rem;
+    }
+
+    .hero p {
+      font-size: clamp(16px, 1.4vw, 22px);
+      line-height: 1.6;
+      color: var(--dark);
+      opacity: 0.8;
+      margin-bottom: 2rem;
+      max-width: 90%;
+    }
+
+    .hero-caption {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      font-size: 0.875rem;
+      color: var(--graytext);
+      text-align: right;
+      max-width: 60%;
+    }
+
+    /* Feature Sections */
+    .feature {
+      background: var(--sage);
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4vw;
+      max-width: 1400px;
+      margin: 0 auto;
+      width: 100%;
+      align-items: center;
+    }
+
+    .feature-grid.reverse {
+      direction: rtl;
+    }
+
+    .feature-grid.reverse > * {
+      direction: ltr;
+    }
+
+    .feature-image {
+      height: 70vh;
+      overflow: hidden;
+      box-shadow: 0 18px 40px rgba(0,0,0,0.1);
+      position: relative;
+    }
+
+    .feature-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .feature-image .micro-label {
+      position: absolute;
+      top: 1.5rem;
+      right: 1.5rem;
+      background: rgba(255,255,255,0.9);
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+    }
+
+    .feature-content {
+      padding: 2rem 0;
+      position: relative;
+    }
+
+    .accent-badge {
+      width: 52px;
+      height: 22px;
+      background: var(--coral);
+      margin-bottom: 1rem;
+    }
+
+    .feature h2 {
+      font-size: clamp(34px, 3.6vw, 56px);
+      margin-bottom: 1.5rem;
+    }
+
+    .feature p {
+      font-size: clamp(15px, 1.2vw, 18px);
+      line-height: 1.6;
+      color: var(--dark);
+      opacity: 0.8;
+      margin-bottom: 2rem;
+    }
+
+    .feature-caption {
+      font-size: 0.875rem;
+      color: var(--graytext);
+      margin-top: 3rem;
+    }
+
+    /* Voices Grid Section */
+    .voices-grid {
+      background: var(--sage);
+    }
+
+    .voices-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 2vw;
+      max-width: 1400px;
+      margin: 0 auto;
+      width: 100%;
+      align-items: stretch;
+    }
+
+    .voices-image {
+      height: 70vh;
+      overflow: hidden;
+      box-shadow: 0 18px 40px rgba(0,0,0,0.1);
+      position: relative;
+    }
+
+    .voices-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .voices-image .micro-label {
+      position: absolute;
+      top: 1.5rem;
+      right: 1.5rem;
+      background: rgba(255,255,255,0.9);
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+    }
+
+    .voices-card {
+      background: white;
+      height: 70vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 2rem;
+      text-align: center;
+      box-shadow: 0 18px 40px rgba(0,0,0,0.1);
+    }
+
+    .voices-card h2 {
+      font-size: clamp(34px, 3.6vw, 56px);
+      margin-bottom: 1.5rem;
+    }
+
+    .voices-card p {
+      font-size: clamp(15px, 1.2vw, 18px);
+      line-height: 1.6;
+      color: var(--dark);
+      opacity: 0.8;
+      margin-bottom: 2rem;
+    }
+
+    /* Support Section */
+    .support-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4vw;
+      max-width: 1400px;
+      margin: 0 auto;
+      width: 100%;
+      align-items: center;
+    }
+
+    .support-image {
+      height: 70vh;
+      overflow: hidden;
+      box-shadow: 0 18px 40px rgba(0,0,0,0.1);
+    }
+
+    .support-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .support-card {
+      background: white;
+      height: 70vh;
+      padding: 3rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+      box-shadow: 0 18px 40px rgba(0,0,0,0.1);
+    }
+
+    .support-card .micro-label {
+      position: absolute;
+      top: 3rem;
+      right: 3rem;
+    }
+
+    .support-card h2 {
+      font-size: clamp(34px, 3.6vw, 56px);
+      margin-bottom: 1.5rem;
+    }
+
+    .support-card p {
+      font-size: clamp(15px, 1.2vw, 18px);
+      line-height: 1.6;
+      color: var(--dark);
+      opacity: 0.8;
+      margin-bottom: 2rem;
+    }
+
+    .support-card .caption {
+      position: absolute;
+      bottom: 3rem;
+      right: 3rem;
+      font-size: 0.875rem;
+      color: var(--graytext);
+      text-align: right;
+      max-width: 60%;
+    }
+
+    /* Contact Section */
+    .contact {
+      background: var(--cream);
+      min-height: auto;
+      padding: 8rem 4vw;
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      max-width: 1100px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .contact h2 {
+      font-size: clamp(34px, 3.6vw, 56px);
+      margin-bottom: 1.5rem;
+    }
+
+    .contact p {
+      font-size: clamp(15px, 1.2vw, 18px);
+      line-height: 1.6;
+      color: var(--dark);
+      opacity: 0.8;
+      margin-bottom: 2rem;
+    }
+
+    .contact-info {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    .contact-info-item {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 0.9375rem;
+    }
+
+    .contact-info-item svg {
+      color: var(--coral);
+      width: 20px;
+      height: 20px;
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-group label {
+      display: block;
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 500;
+      font-size: 0.875rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: 0.875rem 1rem;
+      border: 1px solid rgba(17, 17, 17, 0.1);
+      border-radius: 6px;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.9375rem;
+      background: white;
+      transition: border-color 0.2s;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: var(--coral);
+    }
+
+    .form-group textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    /* Footer */
+    footer {
+      background: var(--cream);
+      padding: 4rem 4vw;
+      border-top: 1px solid rgba(17, 17, 17, 0.1);
+    }
+
+    .footer-content {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2rem;
+    }
+
+    .footer-brand {
+      text-align: center;
+    }
+
+    .footer-brand .logo {
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+      display: inline-block;
+    }
+
+    .footer-brand p {
+      font-size: 0.875rem;
+      color: var(--graytext);
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 2rem;
+    }
+
+    .footer-links a {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 500;
+      font-size: 0.875rem;
+      color: var(--dark);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover {
+      color: var(--coral);
+    }
+
+    .footer-copyright {
+      font-size: 0.875rem;
+      color: var(--graytext);
+      text-align: center;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(17, 17, 17, 0.1);
+      width: 100%;
+    }
+
+    /* Mobile Menu */
+    .mobile-menu-btn {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0.5rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+      }
+
+      .mobile-menu-btn {
+        display: block;
+      }
+
+      .hero-grid,
+      .feature-grid,
+      .support-grid,
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-image,
+      .feature-image,
+      .voices-image,
+      .support-image,
+      .voices-card,
+      .support-card {
+        height: 50vh;
+      }
+
+      .voices-container {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-caption,
+      .support-card .caption {
+        position: static;
+        text-align: left;
+        max-width: 100%;
+        margin-top: 1rem;
+      }
+
+      .support-card .micro-label {
+        position: static;
+        margin-bottom: 1rem;
+      }
+
+      .support-card {
+        height: auto;
+        padding: 2rem;
+      }
+
+      section {
+        padding: 4rem 4vw;
+      }
+    }
+
+    /* Animations */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeInLeft {
+      from {
+        opacity: 0;
+        transform: translateX(-60px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    @keyframes fadeInRight {
+      from {
+        opacity: 0;
+        transform: translateX(60px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    .animate-fade-in-up {
+      animation: fadeInUp 0.8s ease-out forwards;
+    }
+
+    .animate-fade-in-left {
+      animation: fadeInLeft 0.8s ease-out forwards;
+    }
+
+    .animate-fade-in-right {
+      animation: fadeInRight 0.8s ease-out forwards;
+    }
+
+    .delay-100 { animation-delay: 0.1s; }
+    .delay-200 { animation-delay: 0.2s; }
+    .delay-300 { animation-delay: 0.3s; }
+    .delay-400 { animation-delay: 0.4s; }
+    .delay-500 { animation-delay: 0.5s; }
+
+    /* Scroll reveal */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.8s ease-out;
+    }
+
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Grain overlay */
+    .grain-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      pointer-events: none;
+      z-index: 1000;
+      opacity: 0.04;
+      mix-blend-mode: multiply;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    }
+  </style>
+</head>
+<body>
+  <!-- Grain Overlay -->
+  <div class="grain-overlay"></div>
+
+  <!-- Navigation -->
+  <nav id="navbar">
+    <a href="#" class="logo">Theirvoices</a>
+    <div class="nav-links">
+      <a href="#create">Create</a>
+      <a href="#learn">Learn</a>
+      <a href="#community">Community</a>
+      <a href="#support">Support</a>
+      <a href="#contact" class="btn-primary">Donate</a>
+    </div>
+    <button class="mobile-menu-btn" onclick="toggleMenu()">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <line x1="3" y1="6" x2="21" y2="6"></line>
+        <line x1="3" y1="12" x2="21" y2="12"></line>
+        <line x1="3" y1="18" x2="21" y2="18"></line>
+      </svg>
+    </button>
+  </nav>
+
+  <!-- Section 1: Hero - Create -->
+  <section id="create" class="hero">
+    <div class="hero-grid">
+      <div class="hero-image animate-fade-in-left">
+        <img src="images/hero_portrait.jpg" alt="Creator in studio">
+      </div>
+      <div class="hero-content">
+        <span class="micro-label hero-micro animate-fade-in-up delay-400">01 / CREATE</span>
+        <h1 class="animate-fade-in-up delay-200">Create</h1>
+        <p class="animate-fade-in-up delay-300">A space for African women and marginalized voices to make music.</p>
+        <a href="#learn" class="btn-primary animate-fade-in-up delay-400">
+          Start creating
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </a>
+        <p class="hero-caption animate-fade-in-up delay-500">Record, edit, and share—on the devices you already own.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 2: Learn -->
+  <section id="learn" class="feature">
+    <div class="feature-grid">
+      <div class="feature-content reveal">
+        <div class="accent-badge"></div>
+        <h2>Learn</h2>
+        <p>Short lessons, real feedback, and mentors who understand your context.</p>
+        <a href="#community" class="btn-text">
+          Explore courses
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </a>
+        <p class="feature-caption">From first notes to finished tracks—at your own pace.</p>
+      </div>
+      <div class="feature-image reveal">
+        <img src="images/learn_collaboration.jpg" alt="Learning together">
+        <span class="micro-label">02 / LEARN</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 3: Community -->
+  <section id="community" class="feature">
+    <div class="feature-grid reverse">
+      <div class="feature-content reveal">
+        <div class="accent-badge"></div>
+        <span class="micro-label" style="margin-bottom: 1rem; display: inline-block;">03 / CONNECT</span>
+        <h2>Community</h2>
+        <p>Collaborate, get feedback, and grow with creators who share your journey.</p>
+        <a href="#beheard" class="btn-text">
+          Meet the community
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </a>
+        <p class="feature-caption">Groups, challenges, and mentorship—built for real life.</p>
+      </div>
+      <div class="feature-image reveal">
+        <img src="images/community_group.jpg" alt="Community gathering">
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 4: Be Heard -->
+  <section id="beheard" class="feature">
+    <div class="feature-grid">
+      <div class="feature-content reveal">
+        <div class="accent-badge"></div>
+        <span class="micro-label" style="margin-bottom: 1rem; display: inline-block;">04 / DISTRIBUTE</span>
+        <h2>Be Heard</h2>
+        <p>Share your work, find your audience, and turn creativity into opportunity.</p>
+        <a href="#voices" class="btn-text">
+          Share your sound
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </a>
+        <p class="feature-caption">Direct uploads, licensing help, and transparent payouts.</p>
+      </div>
+      <div class="feature-image reveal">
+        <img src="images/beheard_performance.jpg" alt="Performance">
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 5: Voices Grid -->
+  <section id="voices" class="voices-grid">
+    <div class="voices-container">
+      <div class="voices-image reveal">
+        <img src="images/voices_left_portrait.jpg" alt="Creator portrait">
+      </div>
+      <div class="voices-card reveal">
+        <h2>Voices</h2>
+        <p>Thousands of creators. One platform built for inclusion, equity, and growth.</p>
+        <a href="#support" class="btn-text">
+          Read stories
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </a>
+      </div>
+      <div class="voices-image reveal">
+        <img src="images/voices_right_portrait.jpg" alt="Creator portrait">
+        <span class="micro-label">05 / VOICES</span>
+      </div>
+    </div>
+    <p class="micro-label" style="position: absolute; bottom: 10vh; left: 4vw;">From first demos to festival stages.</p>
+  </section>
+
+  <!-- Section 6: Support -->
+  <section id="support" class="feature">
+    <div class="support-grid">
+      <div class="support-image reveal">
+        <img src="images/support_portrait.jpg" alt="Support">
+      </div>
+      <div class="support-card reveal">
+        <span class="micro-label">06 / DONATE</span>
+        <h2>Support</h2>
+        <p>Help us keep the platform accessible. Your contribution funds mentorship, internet stipends, and studio access.</p>
+        <a href="#contact" class="btn-primary">
+          Donate now
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+          </svg>
+        </a>
+        <p class="caption">Every donation turns silence into sound.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 7: Contact -->
+  <section id="contact" class="contact">
+    <div class="contact-grid">
+      <div class="reveal">
+        <h2>Get in touch</h2>
+        <p>Partner, mentor, or collaborate. We're building this with the community—join us.</p>
+        <div class="contact-info">
+          <div class="contact-info-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+              <polyline points="22,6 12,13 2,6"></polyline>
+            </svg>
+            <span>hello@theirvoices.org</span>
+          </div>
+          <div class="contact-info-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+              <circle cx="12" cy="10" r="3"></circle>
+            </svg>
+            <span>Remote-first, Africa-focused</span>
+          </div>
+        </div>
+      </div>
+      <div class="reveal">
+        <form onsubmit="handleSubmit(event)">
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" placeholder="Your name" required>
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" placeholder="your@email.com" required>
+          </div>
+          <div class="form-group">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" placeholder="How would you like to help?" required></textarea>
+          </div>
+          <button type="submit" class="btn-primary">
+            Send message
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="22" y1="2" x2="11" y2="13"></line>
+              <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+            </svg>
+          </button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-brand">
+        <a href="#" class="logo">Theirvoices</a>
+        <p>Create. Learn. Be Heard.</p>
+      </div>
+      <div class="footer-links">
+        <a href="#create">Create</a>
+        <a href="#learn">Learn</a>
+        <a href="#community">Community</a>
+        <a href="#support">Support</a>
+        <a href="#contact">Privacy</a>
+      </div>
+      <div class="footer-copyright">
+        <p>© Theirvoices. Built for inclusion.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Navigation scroll effect
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 100) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    });
+
+    // Scroll reveal animation
+    const revealElements = document.querySelectorAll('.reveal');
+    
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+        }
+      });
+    }, {
+      threshold: 0.15,
+      rootMargin: '0px 0px -50px 0px'
+    });
+
+    revealElements.forEach(el => revealObserver.observe(el));
+
+    // Form submission
+    function handleSubmit(e) {
+      e.preventDefault();
+      alert('Thank you for your message! We will get back to you soon.');
+      e.target.reset();
+    }
+
+    // Mobile menu toggle
+    function toggleMenu() {
+      const navLinks = document.querySelector('.nav-links');
+      navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
+    }
+
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth'
+          });
+        }
+      });
+    });
+  </script>
+</body>
+</html>
