@@ -127,6 +127,22 @@ nav {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
+.btn-text {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 500;
+  font-size: 0.875rem;
+  color: var(--dark);
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.btn-text:hover {
+  text-decoration: underline;
+}
+
 /* Auth Pages (Login/Register) */
 .auth-container {
   min-height: 100vh;
@@ -278,6 +294,7 @@ nav {
   margin-left: 260px;
   padding: 2rem 4vw;
   background: var(--cream);
+  min-height: calc(100vh - 4.5rem);
 }
 
 .page-header {
@@ -286,6 +303,11 @@ nav {
 
 .page-header h1 {
   font-size: clamp(32px, 4vw, 48px);
+  margin-bottom: 0.5rem;
+}
+
+.page-header h2 {
+  font-size: clamp(24px, 3vw, 36px);
   margin-bottom: 0.5rem;
 }
 
@@ -398,12 +420,19 @@ nav {
   font-size: 0.75rem;
 }
 
+.badge-coral {
+  background: var(--coral);
+  color: white;
+}
+
 /* Studio Interface */
 .studio-container {
   background: #1e1e1e;
   min-height: calc(100vh - 4.5rem);
   color: white;
   padding: 2rem;
+  margin-left: 260px;
+  padding-top: calc(4.5rem + 2rem);
 }
 
 .studio-header {
@@ -516,35 +545,19 @@ nav {
   background: #27ae60;
 }
 
-/* Responsive */
-@media (max-width: 768px) {
-  .sidebar {
-    display: none;
-  }
-  
-  .main-content {
-    margin-left: 0;
-  }
-  
-  .stats-grid {
-    grid-template-columns: 1fr;
-  }
-  
-  .content-grid {
-    grid-template-columns: 1fr;
-  }
+.control-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
-/* Grain overlay */
-.grain-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  pointer-events: none;
-  z-index: 1000;
-  opacity: 0.04;
-  mix-blend-mode: multiply;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+/* Profile Page */
+.profile-container {
+  max-width: 800px;
 }
+
+.profile-header {
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  margin-bottom: 2
