@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Studio - Theirvoices</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=Oswald:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+  <!-- Grain Overlay -->
+  <div class="grain-overlay"></div>
+
+  <!-- Navigation -->
+  <nav>
+    <a href="dashboard.html" class="logo">Theirvoices</a>
+    <div class="nav-links">
+      <a href="profile.html" id="userName">User</a>
+      <a href="#" onclick="logout()" class="btn-primary">Logout</a>
+    </div>
+  </nav>
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <nav class="sidebar-nav">
+      <a href="dashboard.html">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="3" y="3" width="7" height="7"></rect>
+          <rect x="14" y="3" width="7" height="7"></rect>
+          <rect x="14" y="14" width="7" height="7"></rect>
+          <rect x="3" y="14" width="7" height="7"></rect>
+        </svg>
+        Dashboard
+      </a>
+      <a href="courses.html">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+          <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+        </svg>
+        Courses
+      </a>
+      <a href="studio.html" class="active">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M9 18V5l12-2v13"></path>
+          <circle cx="6" cy="18" r="3"></circle>
+          <circle cx="18" cy="16" r="3"></circle>
+        </svg>
+        Studio
+      </a>
+      <a href="marketplace.html">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="9" cy="21" r="1"></circle>
+          <circle cx="20" cy="21" r="1"></circle>
+          <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+        </svg>
+        Marketplace
+      </a>
+      <a href="community.html">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+          <circle cx="9" cy="7" r="4"></circle>
+          <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+          <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+        </svg>
+        Community
+      </a>
+      <a href="profile.html">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+          <circle cx="12" cy="7" r="4"></circle>
+        </svg>
+        Profile
+      </a>
+    </nav>
+  </aside>
+
+  <!-- Studio Container -->
+  <div class="studio-container">
+    <div class="studio-header">
+      <h2 id="projectName">Untitled Project</h2>
+      <div class="studio-controls">
+        <button class="btn-secondary" onclick="saveProject()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path>
+            <polyline points="17 21 17 13 7 13 7 21"></polyline>
+            <polyline points="7 3 7 8 15 8"></polyline>
+          </svg>
+          Save
+        </button>
+        <button class="btn-primary" onclick="exportProject()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="7 10 12 15 17 10"></polyline>
+            <line x1="12" y1="15" x2="12" y2="3"></line>
+          </svg>
+          Export
+        </button>
+      </div>
+    </div>
+
+    <!-- Tracks Panel -->
+    <div class="tracks-panel">
+      <h3>Tracks</h3>
+      <div id="tracksList">
+        <div class="track">
+          <div class="track-info">
+            <span>🎤 Track 1 - Vocals</span>
+          </div>
+          <div class="track-controls">
+            <button title="Mute">🔇</button>
+            <button title="Solo">👂</button>
+          </div>
+        </div>
+        <div class="track">
+          <div class="track-info">
+            <span>🥁 Track 2 - Drums</span>
+          </div>
+          <div class="track-controls">
+            <button title="Mute">🔇</button>
+            <button title="Solo">👂</button>
+          </div>
+        </div>
+      </div>
+      <button class="btn-secondary" onclick="addTrack()" style="width: 100%; margin-top: 1rem;">
+        + Add Track
+      </button>
+    </div>
+
+    <!-- Waveform Area -->
+    <div class="waveform-area">
+      <div>
+        <h3 style="color: #888; margin-bottom: 1rem;">🎵 Waveform Display</h3>
+        <p style="color: #666;">Click "Record" to start recording audio</p>
+        <p style="color: #666; font-size: 0.875rem; margin-top: 0.5rem;">Your recorded waveform will appear here</p>
+      </div>
+    </div>
+
+    <!-- Transport Controls -->
+    <div class="transport-controls">
+      <button class="control-btn" onclick="rewind()">⏮️</button>
+      <button class="control-btn" id="recordBtn" onclick="toggleRecord()">⏺️ Record</button>
+      <button class="control-btn" id="playBtn" onclick="togglePlay()">▶️ Play</button>
+      <button class="control-btn" onclick="stop()">⏹️ Stop</button>
+      <button class="control-btn" onclick="forward()">⏭️</button>
+    </div>
+  </div>
+
+  <script src="js/config.js"></script>
+  <script src="js/auth.js"></script>
+  <script>
+    // Protect this page
+    protectPage();
+
+    // Get current user
+    const user = getCurrentUser();
+    if (user) {
+      document.getElementById('userName').textContent = getFirstName(user.name);
+    }
+
+    // Studio state
+    let isRecording = false;
+    let isPlaying = false;
+    let trackCount = 2;
+
+    // Toggle record
+    function toggleRecord() {
+      isRecording = !isRecording;
+      const recordBtn = document.getElementById('recordBtn');
+      
+      if (isRecording) {
+        recordBtn.textContent = '⏹️ Stop Recording';
+        recordBtn.classList.add('recording');
+        alert('Recording started! (Demo mode - actual recording would happen here)');
+      } else {
+        recordBtn.textContent = '⏺️ Record';
+        recordBtn.classList.remove('recording');
+        alert('Recording stopped!');
+      }
+    }
+
+    // Toggle play
+    function togglePlay() {
+      isPlaying = !isPlaying;
+      const playBtn = document.getElementById('playBtn');
+      
+      if (isPlaying) {
+        playBtn.textContent = '⏸️ Pause';
+        alert('Playing... (Demo mode)');
+      } else {
+        playBtn.textContent = '▶️ Play';
+      }
+    }
+
+    // Stop
+    function stop() {
+      isPlaying = false;
+      isRecording = false;
+      document.getElementById('playBtn').textContent = '▶️ Play';
+      document.getElementById('recordBtn').textContent = '⏺️ Record';
+      document.getElementById('recordBtn').classList.remove('recording');
+    }
+
+    // Rewind
+    function rewind() {
+      alert('Rewinding... (Demo mode)');
+    }
+
+    // Forward
+    function forward() {
+      alert('Fast forwarding... (Demo mode)');
+    }
+
+    // Add track
+    function addTrack() {
+      trackCount++;
+      const tracksList = document.getElementById('tracksList');
+      
+      const newTrack = document.createElement('div');
+      newTrack.className = 'track';
+      newTrack.innerHTML = `
+        <div class="track-info">
+          <span>🎹 Track ${trackCount} - New Track</span>
+        </div>
+        <div class="track-controls">
+          <button title="Mute">🔇</button>
+          <button title="Solo">👂</button>
+        </div>
+      `;
+      
+      tracksList.appendChild(newTrack);
+    }
+
+    // Save project
+    function saveProject() {
+      const user = getCurrentUser();
+      const projectsCreated = (user.projectsCreated || 0) + 1;
+      
+      updateCurrentUser({ projectsCreated });
+      
+      alert('Project saved successfully!');
+    }
+
+    // Export project
+    function exportProject() {
+      alert('Exporting project as MP3... (Demo mode)\n\nIn the full version, this would export your audio as a downloadable file.');
+    }
+  </script>
+</body>
+</html>
