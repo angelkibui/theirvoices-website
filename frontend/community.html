@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Community - Theirvoices</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=Oswald:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+  <!-- Grain Overlay -->
+  <div class="grain-overlay"></div>
+
+  <!-- Navigation -->
+  <nav>
+    <a href="dashboard.html" class="logo">Theirvoices</a>
+    <div class="nav-links">
+      <a href="profile.html" id="userName">User</a>
+      <a href="#" onclick="logout()" class="btn-primary">Logout</a>
+    </div>
+  </nav>
+
+  <!-- Dashboard -->
+  <div class="dashboard">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <nav class="sidebar-nav">
+        <a href="dashboard.html">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="3" width="7" height="7"></rect>
+            <rect x="14" y="3" width="7" height="7"></rect>
+            <rect x="14" y="14" width="7" height="7"></rect>
+            <rect x="3" y="14" width="7" height="7"></rect>
+          </svg>
+          Dashboard
+        </a>
+        <a href="courses.html">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+            <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+          </svg>
+          Courses
+        </a>
+        <a href="studio.html">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M9 18V5l12-2v13"></path>
+            <circle cx="6" cy="18" r="3"></circle>
+            <circle cx="18" cy="16" r="3"></circle>
+          </svg>
+          Studio
+        </a>
+        <a href="marketplace.html">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="9" cy="21" r="1"></circle>
+            <circle cx="20" cy="21" r="1"></circle>
+            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+          </svg>
+          Marketplace
+        </a>
+        <a href="community.html" class="active">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+            <circle cx="9" cy="7" r="4"></circle>
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+          </svg>
+          Community
+        </a>
+        <a href="profile.html">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+            <circle cx="12" cy="7" r="4"></circle>
+          </svg>
+          Profile
+        </a>
+      </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <div class="page-header">
+        <h1>Community</h1>
+        <p>Connect, collaborate, and grow together</p>
+      </div>
+
+      <!-- Tabs -->
+      <div class="community-tabs">
+        <button class="active">Recent Posts</button>
+        <button>Collaborations</button>
+        <button>Questions</button>
+      </div>
+
+      <!-- Create Post Button -->
+      <button class="btn-primary" onclick="createPost()" style="margin-bottom: 2rem;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="12" y1="5" x2="12" y2="19"></line>
+          <line x1="5" y1="12" x2="19" y2="12"></line>
+        </svg>
+        Create Post
+      </button>
+
+      <!-- Posts Feed -->
+      <div id="postsFeed">
+        <!-- Posts will be loaded here -->
+      </div>
+    </main>
+  </div>
+
+  <script src="js/config.js"></script>
+  <script src="js/auth.js"></script>
+  <script>
+    // Protect this page
+    protectPage();
+
+    // Get current user
+    const user = getCurrentUser();
+    if (user) {
+      document.getElementById('userName').textContent = getFirstName(user.name);
+    }
+
+    // Load posts
+    function loadPosts() {
+      const postsStr = localStorage.getItem(CONFIG.POSTS_KEY);
+      const posts = postsStr ? JSON.parse(postsStr) : SAMPLE_POSTS;
+      
+      const postsFeed = document.getElementById('postsFeed');
+      postsFeed.innerHTML = '';
+      
+      posts.forEach(post => {
+        const postCard = document.createElement('div');
+        postCard.className = 'post-card';
+        
+        postCard.innerHTML = `
+          <div class="post-header">
+            <div class="post-avatar">${post.avatar}</div>
+            <div class="post-author">
+              <div class="post-author-name">${post.author}</div>
+              <div class="post-time">${post.time}</div>
+            </div>
+          </div>
+          <div class="post-content">${post.content}</div>
+          <div class="post-actions">
+            <div class="post-action">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+              </svg>
+              ${post.likes} likes
+            </div>
+            <div class="post-action">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+              </svg>
+              ${post.comments} comments
+            </div>
+            <div class="post-action">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="18" cy="5" r="3"></circle>
+                <circle cx="6" cy="12" r="3"></circle>
+                <circle cx="18" cy="19" r="3"></circle>
+                <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+                <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+              </svg>
+              Share
+            </div>
+          </div>
+        `;
+        
+        postsFeed.appendChild(postCard);
+      });
+    }
+
+    // Create post
+    function createPost() {
+      const content = prompt('What would you like to share with the community?');
+      
+      if (content && content.trim()) {
+        const user = getCurrentUser();
+        const postsStr = localStorage.getItem(CONFIG.POSTS_KEY);
+        const posts = postsStr ? JSON.parse(postsStr) : SAMPLE_POSTS;
+        
+        const newPost = {
+          id: Date.now().toString(),
+          author: user.name,
+          avatar: getUserInitials(user.name)[0],
+          time: 'Just now',
+          content: content,
+          likes: 0,
+          comments: 0
+        };
+        
+        posts.unshift(newPost);
+        localStorage.setItem(CONFIG.POSTS_KEY, JSON.stringify(posts));
+        
+        loadPosts();
+      }
+    }
+
+    // Load posts on page load
+    loadPosts();
+  </script>
+</body>
+</html>

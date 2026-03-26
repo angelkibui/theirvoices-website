@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profile - Theirvoices</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=Oswald:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+  <!-- Grain Overlay -->
+  <div class="grain-overlay"></div>
+
+  <!-- Navigation -->
+  <nav>
+    <a href="dashboard.html" class="logo">Theirvoices</a>
+    <div class="nav-links">
+      <a href="profile.html" id="userName">User</a>
+      <a href="#" onclick="logout()" class="btn-primary">Logout</a>
+    </div>
+  </nav>
+
+  <!-- Dashboard -->
+  <div class="dashboard">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <nav class="sidebar-nav">
+        <a href="dashboard.html">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="3" width="7" height="7"></rect>
+            <rect x="14" y="3" width="7" height="7"></rect>
+            <rect x="14" y="14" width="7" height="7"></rect>
+            <rect x="3" y="14" width="7" height="7"></rect>
+          </svg>
+          Dashboard
+        </a>
+        <a href="courses.html">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+            <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+          </svg>
+          Courses
+        </a>
+        <a href="studio.html">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M9 18V5l12-2v13"></path>
+            <circle cx="6" cy="18" r="3"></circle>
+            <circle cx="18" cy="16" r="3"></circle>
+          </svg>
+          Studio
+        </a>
+        <a href="marketplace.html">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="9" cy="21" r="1"></circle>
+            <circle cx="20" cy="21" r="1"></circle>
+            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+          </svg>
+          Marketplace
+        </a>
+        <a href="community.html">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+            <circle cx="9" cy="7" r="4"></circle>
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+          </svg>
+          Community
+        </a>
+        <a href="profile.html" class="active">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+            <circle cx="12" cy="7" r="4"></circle>
+          </svg>
+          Profile
+        </a>
+      </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <div class="profile-container">
+        <div class="page-header">
+          <h1>My Profile</h1>
+          <p>Manage your account settings</p>
+        </div>
+
+        <!-- Profile Header -->
+        <div class="profile-header">
+          <div class="profile-avatar" id="profileAvatar">A</div>
+          <h2 class="profile-name" id="profileName">User Name</h2>
+          <p class="profile-role" id="profileRole">Learner</p>
+        </div>
+
+        <!-- Profile Form -->
+        <div class="profile-form">
+          <div class="success-message" id="successMessage"></div>
+          
+          <form id="profileForm">
+            <div class="form-group">
+              <label for="name">Full Name</label>
+              <input type="text" id="name" name="name" required>
+            </div>
+
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="email" id="email" name="email" required>
+            </div>
+
+            <div class="form-group">
+              <label for="location">Location</label>
+              <input type="text" id="location" name="location" placeholder="City, Country">
+            </div>
+
+            <div class="form-group">
+              <label for="bio">Bio</label>
+              <textarea id="bio" name="bio" rows="4" placeholder="Tell us about yourself and your music journey..."></textarea>
+            </div>
+
+            <div class="form-group">
+              <label for="role">Role</label>
+              <select id="role" name="role">
+                <option value="learner">Learner</option>
+                <option value="creator">Creator</option>
+                <option value="mentor">Mentor</option>
+              </select>
+            </div>
+
+            <button type="submit" class="btn-primary" style="width: 100%;">
+              Save Changes
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path>
+                <polyline points="17 21 17 13 7 13 7 21"></polyline>
+                <polyline points="7 3 7 8 15 8"></polyline>
+              </svg>
+            </button>
+          </form>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="js/config.js"></script>
+  <script src="js/auth.js"></script>
+  <script>
+    // Protect this page
+    protectPage();
+
+    // Get current user
+    const user = getCurrentUser();
+    
+    // Load user data
+    function loadUserData() {
+      if (user) {
+        document.getElementById('userName').textContent = getFirstName(user.name);
+        document.getElementById('profileName').textContent = user.name;
+        document.getElementById('profileRole').textContent = user.role;
+        document.getElementById('profileAvatar').textContent = getUserInitials(user.name);
+        
+        document.getElementById('name').value = user.name;
+        document.getElementById('email').value = user.email;
+        document.getElementById('location').value = user.location || '';
+        document.getElementById('bio').value = user.bio || '';
+        document.getElementById('role').value = user.role;
+      }
+    }
+
+    // Handle form submission
+    document.getElementById('profileForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const updatedUser = {
+        name: document.getElementById('name').value,
+        email: document.getElementById('email').value,
+        location: document.getElementById('location').value,
+        bio: document.getElementById('bio').value,
+        role: document.getElementById('role').value
+      };
+      
+      const success = updateCurrentUser(updatedUser);
+      
+      if (success) {
+        const successMessage = document.getElementById('successMessage');
+        successMessage.textContent = 'Profile updated successfully!';
+        successMessage.style.display = 'block';
+        
+        // Reload user data
+        loadUserData();
+        
+        setTimeout(() => {
+          successMessage.style.display = 'none';
+        }, 3000);
+      }
+    });
+
+    // Load data on page load
+    loadUserData();
+  </script>
+</body>
+</html>
