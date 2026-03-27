@@ -50,23 +50,19 @@
     }
 
     /* Navigation */
-    nav {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      z-index: 100;
-      padding: 1rem 4vw;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      transition: background 0.3s ease;
-    }
-
-    nav.scrolled {
-      background: rgba(185, 224, 142, 0.95);
-      backdrop-filter: blur(10px);
-    }
+  nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    padding: 1rem 4vw;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(185, 224, 142, 0.95); /* ALWAYS visible */
+    backdrop-filter: blur(10px);
+}
 
     .logo {
       font-family: 'Space Grotesk', sans-serif;
@@ -699,11 +695,12 @@
   <nav id="navbar">
     <a href="#" class="logo">Theirvoices</a>
     <div class="nav-links">
-      <a href="#create">Create</a>
-      <a href="#learn">Learn</a>
-      <a href="#community">Community</a>
-      <a href="#support">Support</a>
-      <a href="#contact" class="btn-primary">Donate</a>
+      <a href="index.html">Home</a>
+      <a href="courses.html">Courses</a>
+      <a href="community.html">Community</a>
+      <a href="dashboard.html">Dashboard</a> |
+      <a href="login.html">Login</a>
+      <a href="register.html" class="btn-primary">Sign Up</a>
     </div>
     <button class="mobile-menu-btn" onclick="toggleMenu()">
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -731,7 +728,6 @@
             <polyline points="12 5 19 12 12 19"></polyline>
           </svg>
         </a>
-        <p class="hero-caption animate-fade-in-up delay-500">Record, edit, and share—on the devices you already own.</p>
       </div>
     </div>
   </section>
@@ -923,13 +919,6 @@
   <script>
     // Navigation scroll effect
     const navbar = document.getElementById('navbar');
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 100) {
-        navbar.classList.add('scrolled');
-      } else {
-        navbar.classList.remove('scrolled');
-      }
-    });
 
     // Scroll reveal animation
     const revealElements = document.querySelectorAll('.reveal');

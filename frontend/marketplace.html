@@ -110,82 +110,89 @@
   </div>
 
   <script src="js/config.js"></script>
-  <script src="js/auth.js"></script>
-  <script>
-    // Protect this page
-    protectPage();
+<script src="js/auth.js"></script>
+<script>
+  // Protect this page
+  protectPage();
 
-    // Get current user
-    const user = getCurrentUser();
-    if (user) {
-      document.getElementById('userName').textContent = getFirstName(user.name);
+  // Get current user
+  const user = getCurrentUser();
+  if (user) {
+    document.getElementById('userName').textContent = getFirstName(user.name);
+  }
+
+  // Product icons (SVG)
+  const productIcons = {
+    'Samples': '<svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"></circle><polygon points="10 8 16 12 10 16 10 8"></polygon></svg>',
+    'Loops': '<svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="17 1 21 5 17 9"></polyline><path d="M3 11V9a4 4 0 0 1 4-4h14"></path><polyline points="7 23 3 19 7 15"></polyline><path d="M21 13v2a4 4 0 0 1-4 4H3"></path></svg>',
+    'Beats': '<svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 18V5l12-2v13"></path><circle cx="6" cy="18" r="3"></circle><circle cx="18" cy="16" r="3"></circle></svg>'
+  };
+
+  // Load products
+  function loadProducts(filter = { category: 'all', price: 'all' }) {
+    const productsStr = localStorage.getItem(CONFIG.MARKETPLACE_KEY);
+    let products = productsStr ? JSON.parse(productsStr) : SAMPLE_MARKETPLACE;
+    
+    // Filter by category
+    if (filter.category !== 'all') {
+      products = products.filter(p => p.category === filter.category);
     }
-
-    // Load products
-    function loadProducts(filter = { category: 'all', price: 'all' }) {
-      const productsStr = localStorage.getItem(CONFIG.MARKETPLACE_KEY);
-      let products = productsStr ? JSON.parse(productsStr) : SAMPLE_MARKETPLACE;
-      
-      // Filter by category
-      if (filter.category !== 'all') {
-        products = products.filter(p => p.category === filter.category);
+    
+    // Filter by price
+    if (filter.price !== 'all') {
+      if (filter.price === '0-20') {
+        products = products.filter(p => p.price < 20);
+      } else if (filter.price === '20-30') {
+        products = products.filter(p => p.price >= 20 && p.price <= 30);
+      } else if (filter.price === '30+') {
+        products = products.filter(p => p.price > 30);
       }
+    }
+    
+    const productsGrid = document.getElementById('productsGrid');
+    productsGrid.innerHTML = '';
+    
+    products.forEach(product => {
+      const productCard = document.createElement('div');
+      productCard.className = 'content-card';
+      productCard.onclick = () => purchaseProduct(product);
       
-      // Filter by price
-      if (filter.price !== 'all') {
-        if (filter.price === '0-20') {
-          products = products.filter(p => p.price < 20);
-        } else if (filter.price === '20-30') {
-          products = products.filter(p => p.price >= 20 && p.price <= 30);
-        } else if (filter.price === '30+') {
-          products = products.filter(p => p.price > 30);
-        }
-      }
-      
-      const productsGrid = document.getElementById('productsGrid');
-      productsGrid.innerHTML = '';
-      
-      products.forEach(product => {
-        const productCard = document.createElement('div');
-        productCard.className = 'content-card';
-        productCard.onclick = () => purchaseProduct(product);
-        
-        productCard.innerHTML = `
-          <div class="content-card-image">${product.icon}</div>
-          <div class="content-card-body">
-            <div class="content-card-title">${product.title}</div>
-            <div class="content-card-description">${product.description}</div>
-            <div class="content-card-meta">
-              <span class="badge">${product.category}</span>
-              <span style="color: var(--graytext); font-size: 0.875rem;">by ${product.seller}</span>
-            </div>
-            <div class="product-price">$${product.price}</div>
+      productCard.innerHTML = `
+        <div class="content-card-image">${productIcons[product.category] || productIcons['Samples']}</div>
+        <div class="content-card-body">
+          <div class="content-card-title">${product.title}</div>
+          <div class="content-card-description">${product.description}</div>
+          <div class="content-card-meta">
+            <span class="badge">${product.category}</span>
+            <span style="color: var(--graytext); font-size: 0.875rem;">by ${product.seller}</span>
           </div>
-        `;
-        
-        productsGrid.appendChild(productCard);
-      });
-    }
-
-    // Filter products
-    function filterProducts() {
-      const category = document.getElementById('categoryFilter').value;
-      const price = document.getElementById('priceFilter').value;
+          <div class="product-price">$${product.price}</div>
+        </div>
+      `;
       
-      loadProducts({ category, price });
-    }
+      productsGrid.appendChild(productCard);
+    });
+  }
 
-    // Purchase product
-    function purchaseProduct(product) {
-      const confirmPurchase = confirm(`Purchase "${product.title}" for $${product.price}?`);
-      
-      if (confirmPurchase) {
-        alert('Purchase successful! (Demo mode)\n\nIn the full version, this would process payment via M-Pesa/Mobile Money and download the product.');
-      }
-    }
+  // Filter products
+  function filterProducts() {
+    const category = document.getElementById('categoryFilter').value;
+    const price = document.getElementById('priceFilter').value;
+    
+    loadProducts({ category, price });
+  }
 
-    // Load products on page load
-    loadProducts();
-  </script>
+  // Purchase product
+  function purchaseProduct(product) {
+    const confirmPurchase = confirm(`Purchase "${product.title}" for $${product.price}?`);
+    
+    if (confirmPurchase) {
+      alert('Purchase successful! (Demo mode)\n\nIn the full version, this would process payment via M-Pesa/Mobile Money and download the product.');
+    }
+  }
+
+  // Load products on page load
+  loadProducts();
+</script>
 </body>
 </html>
