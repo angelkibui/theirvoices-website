@@ -7,158 +7,555 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=Oswald:wght@400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/app.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --sage: #B9E08E;
+      --cream: #F6F3EA;
+      --coral: #D13B3B;
+      --dark: #111111;
+      --graytext: #3F3F3F;
+      --white: #FFFFFF;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--cream);
+      color: var(--dark);
+      line-height: 1.6;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+    }
+
+    .micro-label {
+      font-family: 'Oswald', sans-serif;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--graytext);
+    }
+
+    /* Navigation */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      padding: 1rem 4vw;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(246, 243, 234, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+    }
+
+    .logo {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 1.25rem;
+      color: var(--dark);
+      text-decoration: none;
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    .nav-links a {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 500;
+      font-size: 0.875rem;
+      color: var(--dark);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--coral);
+    }
+
+    .user-menu {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      cursor: pointer;
+    }
+
+    .user-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--sage);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      color: var(--dark);
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.5rem;
+      background: var(--coral);
+      color: white;
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 600;
+      font-size: 0.875rem;
+      border-radius: 6px;
+      text-decoration: none;
+      transition: transform 0.2s, box-shadow 0.2s;
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(209, 59, 59, 0.3);
+    }
+
+    /* Courses Layout */
+    .courses-page {
+      min-height: 100vh;
+      padding-top: 6rem;
+    }
+
+    .courses-header {
+      background: var(--sage);
+      padding: 4rem 4vw;
+      margin-bottom: 3rem;
+    }
+
+    .courses-header-content {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .courses-header h1 {
+      font-size: clamp(34px, 4vw, 56px);
+      margin-bottom: 1rem;
+    }
+
+    .courses-header p {
+      font-size: 1.25rem;
+      opacity: 0.8;
+      max-width: 600px;
+    }
+
+    .search-bar {
+      display: flex;
+      gap: 1rem;
+      margin-top: 2rem;
+      max-width: 600px;
+    }
+
+    .search-input {
+      flex: 1;
+      padding: 1rem 1.5rem;
+      border: none;
+      border-radius: 8px;
+      font-family: 'Inter', sans-serif;
+      font-size: 1rem;
+      background: var(--white);
+    }
+
+    .courses-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 4vw 4rem;
+      display: grid;
+      grid-template-columns: 250px 1fr;
+      gap: 3rem;
+    }
+
+    .filters {
+      background: var(--white);
+      padding: 2rem;
+      border-radius: 12px;
+      height: fit-content;
+      position: sticky;
+      top: 100px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+    }
+
+    .filter-group {
+      margin-bottom: 2rem;
+    }
+
+    .filter-group h4 {
+      font-size: 0.875rem;
+      margin-bottom: 1rem;
+      font-family: 'Oswald', sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    .filter-option {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 0.75rem;
+      font-size: 0.9rem;
+      cursor: pointer;
+    }
+
+    .filter-option input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      accent-color: var(--coral);
+    }
+
+    .courses-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+
+    .course-card {
+      background: var(--white);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+      transition: transform 0.2s, box-shadow 0.2s;
+      cursor: pointer;
+    }
+
+    .course-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.1);
+    }
+
+    .course-image {
+      height: 180px;
+      background: var(--dark);
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--sage);
+      font-size: 3rem;
+    }
+
+    .course-badge {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      padding: 0.5rem 1rem;
+      background: var(--coral);
+      color: white;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-family: 'Oswald', sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .course-content {
+      padding: 1.5rem;
+    }
+
+    .course-meta {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 0.75rem;
+      font-size: 0.875rem;
+      color: var(--graytext);
+    }
+
+    .course-content h3 {
+      font-size: 1.25rem;
+      margin-bottom: 0.75rem;
+      line-height: 1.3;
+    }
+
+    .course-content p {
+      font-size: 0.9rem;
+      color: var(--graytext);
+      margin-bottom: 1.5rem;
+      line-height: 1.5;
+    }
+
+    .course-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 1rem;
+      border-top: 1px solid rgba(0,0,0,0.1);
+    }
+
+    .course-level {
+      padding: 0.25rem 0.75rem;
+      background: var(--cream);
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-family: 'Oswald', sans-serif;
+      text-transform: uppercase;
+    }
+
+    .course-price {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 1.25rem;
+      color: var(--coral);
+    }
+
+    .mobile-menu-btn {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+
+    @media (max-width: 968px) {
+      .courses-container {
+        grid-template-columns: 1fr;
+      }
+      .filters {
+        display: none;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+      }
+      .mobile-menu-btn {
+        display: block;
+      }
+    }
+  </style>
 </head>
 <body>
-  <!-- Grain Overlay -->
-  <div class="grain-overlay"></div>
-
-  <!-- Navigation -->
   <nav>
-    <a href="dashboard.html" class="logo">Theirvoices</a>
-    <div class="nav-links">
-      <a href="profile.html" id="userName">User</a>
-      <a href="#" onclick="logout()" class="btn-primary">Logout</a>
+    <a href="index.html" class="logo">Theirvoices</a>
+    <div class="nav-right">
+      <div class="nav-links">
+        <a href="dashboard.html">Dashboard</a>
+        <a href="studio.html">Studio</a>
+        <a href="community.html">Community</a>
+        <a href="marketplace.html">Marketplace</a>
+      </div>
+      <div class="user-menu" onclick="window.location.href='profile.html'">
+        <div class="user-avatar">AK</div>
+      </div>
+      <button class="mobile-menu-btn">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+      </button>
     </div>
   </nav>
 
-  <!-- Dashboard -->
-  <div class="dashboard">
-    <!-- Sidebar -->
-    <aside class="sidebar">
-      <nav class="sidebar-nav">
-        <a href="dashboard.html">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <rect x="3" y="3" width="7" height="7"></rect>
-            <rect x="14" y="3" width="7" height="7"></rect>
-            <rect x="14" y="14" width="7" height="7"></rect>
-            <rect x="3" y="14" width="7" height="7"></rect>
-          </svg>
-          Dashboard
-        </a>
-        <a href="courses.html" class="active">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
-            <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
-          </svg>
-          Courses
-        </a>
-        <a href="studio.html">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M9 18V5l12-2v13"></path>
-            <circle cx="6" cy="18" r="3"></circle>
-            <circle cx="18" cy="16" r="3"></circle>
-          </svg>
-          Studio
-        </a>
-        <a href="marketplace.html">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="9" cy="21" r="1"></circle>
-            <circle cx="20" cy="21" r="1"></circle>
-            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
-          </svg>
-          Marketplace
-        </a>
-        <a href="community.html">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-            <circle cx="9" cy="7" r="4"></circle>
-            <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
-            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-          </svg>
-          Community
-        </a>
-        <a href="profile.html">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-            <circle cx="12" cy="7" r="4"></circle>
-          </svg>
-          Profile
-        </a>
-      </nav>
-    </aside>
-
-    <!-- Main Content -->
-    <main class="main-content">
-      <div class="page-header">
+  <div class="courses-page">
+    <div class="courses-header">
+      <div class="courses-header-content">
+        <span class="micro-label">02 / LEARN</span>
         <h1>Music Production Courses</h1>
-        <p>Learn from beginner to advanced levels</p>
+        <p>Master the art of music production with courses designed for African creators. From beginner basics to advanced techniques.</p>
+        <div class="search-bar">
+          <input type="text" class="search-input" placeholder="Search courses...">
+          <button class="btn-primary">Search</button>
+        </div>
       </div>
+    </div>
 
-      <!-- Courses Grid -->
-      <div class="content-grid" id="coursesGrid">
-        <!-- Courses will be loaded here -->
-      </div>
-    </main>
-  </div>
+    <div class="courses-container">
+      <aside class="filters">
+        <div class="filter-group">
+          <h4>Level</h4>
+          <label class="filter-option">
+            <input type="checkbox" checked> Beginner
+          </label>
+          <label class="filter-option">
+            <input type="checkbox" checked> Intermediate
+          </label>
+          <label class="filter-option">
+            <input type="checkbox"> Advanced
+          </label>
+        </div>
+        <div class="filter-group">
+          <h4>Topic</h4>
+          <label class="filter-option">
+            <input type="checkbox" checked> Production
+          </label>
+          <label class="filter-option">
+            <input type="checkbox" checked> Mixing
+          </label>
+          <label class="filter-option">
+            <input type="checkbox"> Music Theory
+          </label>
+          <label class="filter-option">
+            <input type="checkbox"> Business
+          </label>
+        </div>
+        <div class="filter-group">
+          <h4>Genre</h4>
+          <label class="filter-option">
+            <input type="checkbox" checked> Afrobeats
+          </label>
+          <label class="filter-option">
+            <input type="checkbox"> Amapiano
+          </label>
+          <label class="filter-option">
+            <input type="checkbox"> Hip Hop
+          </label>
+          <label class="filter-option">
+            <input type="checkbox"> Gospel
+          </label>
+        </div>
+        <div class="filter-group">
+          <h4>Price</h4>
+          <label class="filter-option">
+            <input type="checkbox" checked> Free
+          </label>
+          <label class="filter-option">
+            <input type="checkbox" checked> Paid
+          </label>
+        </div>
+      </aside>
 
-  <script src="js/config.js"></script>
-<script src="js/auth.js"></script>
-<script>
-  // Protect this page
-  protectPage();
-
-  // Get current user
-  const user = getCurrentUser();
-  if (user) {
-    document.getElementById('userName').textContent = getFirstName(user.name);
-  }
-
-  // Course icons (SVG)
-  const courseIcons = {
-    '1': '<svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 18V5l12-2v13"></path><circle cx="6" cy="18" r="3"></circle><circle cx="18" cy="16" r="3"></circle></svg>',
-    '2': '<svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect><line x1="6" y1="6" x2="6.01" y2="6"></line><line x1="6" y1="18" x2="6.01" y2="18"></line></svg>',
-    '3': '<svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="23"></line><line x1="8" y1="23" x2="16" y2="23"></line></svg>',
-    '4': '<svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>',
-    '5': '<svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"></circle><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H6"></path><path d="M12 18V6"></path></svg>',
-    '6': '<svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>'
-  };
-
-  // Load courses
-  function loadCourses() {
-    const coursesStr = localStorage.getItem(CONFIG.COURSES_KEY);
-    const courses = coursesStr ? JSON.parse(coursesStr) : SAMPLE_COURSES;
-    
-    const coursesGrid = document.getElementById('coursesGrid');
-    coursesGrid.innerHTML = '';
-    
-    courses.forEach(course => {
-      const courseCard = document.createElement('div');
-      courseCard.className = 'content-card';
-      courseCard.onclick = () => enrollCourse(course.id);
-      
-      courseCard.innerHTML = `
-        <div class="content-card-image">${courseIcons[course.id] || courseIcons['1']}</div>
-        <div class="content-card-body">
-          <div class="content-card-title">${course.title}</div>
-          <div class="content-card-description">${course.description}</div>
-          <div class="content-card-meta">
-            <span class="badge">${course.difficulty}</span>
-            <span class="badge">${course.duration}</span>
+      <div class="courses-grid">
+        <div class="course-card" onclick="window.location.href='course-detail.html'">
+          <div class="course-image">
+            🎵
+            <span class="course-badge">Popular</span>
           </div>
-          <div style="margin-top: 1rem; font-size: 0.875rem; color: var(--graytext);">
-            ${course.enrolled} students enrolled
+          <div class="course-content">
+            <div class="course-meta">
+              <span>8 modules</span>
+              <span>•</span>
+              <span>12 hours</span>
+            </div>
+            <h3>Introduction to Afrobeats Production</h3>
+            <p>Learn the fundamentals of creating Afrobeats, from drum patterns to melodic elements.</p>
+            <div class="course-footer">
+              <span class="course-level">Beginner</span>
+              <span class="course-price">Free</span>
+            </div>
           </div>
         </div>
-      `;
-      
-      coursesGrid.appendChild(courseCard);
-    });
-  }
 
-  // Enroll in course
-  function enrollCourse(courseId) {
-    const user = getCurrentUser();
-    const coursesEnrolled = (user.coursesEnrolled || 0) + 1;
-    
-    updateCurrentUser({ coursesEnrolled });
-    
-    alert('Successfully enrolled! Start learning now.');
-    window.location.href = 'course-detail.html?id=' + courseId;
-  }
+        <div class="course-card">
+          <div class="course-image">
+            🎹
+          </div>
+          <div class="course-content">
+            <div class="course-meta">
+              <span>6 modules</span>
+              <span>•</span>
+              <span>8 hours</span>
+            </div>
+            <h3>Music Theory for Producers</h3>
+            <p>Understand scales, chords, and progressions to create compelling harmonies.</p>
+            <div class="course-footer">
+              <span class="course-level">Beginner</span>
+              <span class="course-price">$5</span>
+            </div>
+          </div>
+        </div>
 
-  // Load courses on page load
-  loadCourses();
-</script>
+        <div class="course-card">
+          <div class="course-image">
+            🎤
+            <span class="course-badge">New</span>
+          </div>
+          <div class="course-content">
+            <div class="course-meta">
+              <span>10 modules</span>
+              <span>•</span>
+              <span>15 hours</span>
+            </div>
+            <h3>Vocal Recording & Processing</h3>
+            <p>Master the art of recording and mixing vocals with professional techniques.</p>
+            <div class="course-footer">
+              <span class="course-level">Intermediate</span>
+              <span class="course-price">$8</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="course-card">
+          <div class="course-image">
+            🥁
+          </div>
+          <div class="course-content">
+            <div class="course-meta">
+              <span>5 modules</span>
+              <span>•</span>
+              <span>6 hours</span>
+            </div>
+            <h3>Drum Programming Masterclass</h3>
+            <p>Create infectious rhythms and percussion patterns for any genre.</p>
+            <div class="course-footer">
+              <span class="course-level">Intermediate</span>
+              <span class="course-price">$6</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="course-card">
+          <div class="course-image">
+            🎛️
+          </div>
+          <div class="course-content">
+            <div class="course-meta">
+              <span>12 modules</span>
+              <span>•</span>
+              <span>20 hours</span>
+            </div>
+            <h3>Mixing & Mastering Essentials</h3>
+            <p>Take your tracks from good to great with professional mixing techniques.</p>
+            <div class="course-footer">
+              <span class="course-level">Advanced</span>
+              <span class="course-price">$12</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="course-card">
+          <div class="course-image">
+            💼
+          </div>
+          <div class="course-content">
+            <div class="course-meta">
+              <span>4 modules</span>
+              <span>•</span>
+              <span>5 hours</span>
+            </div>
+            <h3>Music Business for Creators</h3>
+            <p>Learn how to monetize your music and build a sustainable career.</p>
+            <div class="course-footer">
+              <span class="course-level">All Levels</span>
+              <span class="course-price">Free</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </body>
 </html>

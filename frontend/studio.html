@@ -7,244 +7,808 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=Oswald:wght@400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/app.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --sage: #B9E08E;
+      --cream: #F6F3EA;
+      --coral: #D13B3B;
+      --dark: #111111;
+      --graytext: #3F3F3F;
+      --white: #FFFFFF;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--dark);
+      color: var(--cream);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+    }
+
+    /* Navigation */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      padding: 1rem 4vw;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(17, 17, 17, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .logo {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 1.25rem;
+      color: var(--sage);
+      text-decoration: none;
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    .nav-links a {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 500;
+      font-size: 0.875rem;
+      color: var(--cream);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--sage);
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.5rem;
+      background: var(--coral);
+      color: white;
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 600;
+      font-size: 0.875rem;
+      border-radius: 6px;
+      text-decoration: none;
+      transition: transform 0.2s, box-shadow 0.2s;
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(209, 59, 59, 0.3);
+    }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.5rem;
+      background: transparent;
+      color: var(--cream);
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 600;
+      font-size: 0.875rem;
+      border-radius: 6px;
+      text-decoration: none;
+      border: 1px solid rgba(255,255,255,0.2);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255,255,255,0.1);
+    }
+
+    /* Studio Layout */
+    .studio {
+      min-height: 100vh;
+      padding-top: 5rem;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .studio-header {
+      padding: 1.5rem 4vw;
+      background: rgba(0,0,0,0.3);
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .project-info h1 {
+      color: var(--sage);
+      font-size: 1.5rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .project-info span {
+      color: var(--graytext);
+      font-size: 0.875rem;
+    }
+
+    .transport-controls {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+    }
+
+    .transport-btn {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+    }
+
+    .transport-btn:hover {
+      transform: scale(1.1);
+    }
+
+    .transport-btn.record {
+      background: var(--coral);
+      color: white;
+    }
+
+    .transport-btn.play {
+      background: var(--sage);
+      color: var(--dark);
+    }
+
+    .transport-btn.stop {
+      background: rgba(255,255,255,0.1);
+      color: var(--cream);
+    }
+
+    .time-display {
+      font-family: 'Space Grotesk', monospace;
+      font-size: 2rem;
+      color: var(--sage);
+      background: rgba(0,0,0,0.5);
+      padding: 0.5rem 1.5rem;
+      border-radius: 8px;
+      letter-spacing: 0.1em;
+    }
+
+    .studio-main {
+      flex: 1;
+      padding: 2rem 4vw;
+      display: grid;
+      grid-template-columns: 1fr 300px;
+      gap: 2rem;
+      overflow-y: auto;
+    }
+
+    .timeline-area {
+      background: rgba(255,255,255,0.03);
+      border-radius: 12px;
+      padding: 2rem;
+      border: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .timeline-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+    }
+
+    .timeline-header h3 {
+      color: var(--sage);
+      font-size: 1rem;
+    }
+
+    .zoom-controls {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .zoom-btn {
+      padding: 0.5rem 1rem;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: var(--cream);
+      border-radius: 4px;
+      cursor: pointer;
+      font-family: 'Space Grotesk', sans-serif;
+    }
+
+    .track {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem;
+      background: rgba(0,0,0,0.3);
+      border-radius: 8px;
+      margin-bottom: 1rem;
+      border: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .track-controls {
+      width: 150px;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .track-header {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .track-icon {
+      width: 32px;
+      height: 32px;
+      background: var(--sage);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--dark);
+      font-size: 1rem;
+    }
+
+    .track-name {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 600;
+      font-size: 0.875rem;
+    }
+
+    .track-buttons {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .track-btn {
+      padding: 0.25rem 0.75rem;
+      font-size: 0.75rem;
+      border: 1px solid rgba(255,255,255,0.2);
+      background: transparent;
+      color: var(--cream);
+      border-radius: 4px;
+      cursor: pointer;
+      font-family: 'Oswald', sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      transition: all 0.2s;
+    }
+
+    .track-btn:hover {
+      background: rgba(255,255,255,0.1);
+    }
+
+    .track-btn.active {
+      background: var(--coral);
+      border-color: var(--coral);
+    }
+
+    .track-btn.mute.active {
+      background: var(--graytext);
+      border-color: var(--graytext);
+    }
+
+    .track-waveform {
+      flex: 1;
+      height: 80px;
+      background: rgba(0,0,0,0.3);
+      border-radius: 4px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .waveform-visual {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(90deg, var(--sage) 0%, var(--sage) 60%, transparent 60%);
+      opacity: 0.6;
+    }
+
+    .waveform-visual::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 2px,
+        rgba(0,0,0,0.3) 2px,
+        rgba(0,0,0,0.3) 4px
+      );
+      transform: translateY(-50%);
+    }
+
+    .playhead {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 60%;
+      width: 2px;
+      background: var(--coral);
+      z-index: 10;
+    }
+
+    .sidebar-panel {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .panel-section {
+      background: rgba(255,255,255,0.03);
+      border-radius: 12px;
+      padding: 1.5rem;
+      border: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .panel-section h3 {
+      color: var(--sage);
+      font-size: 0.875rem;
+      margin-bottom: 1rem;
+      font-family: 'Oswald', sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    .effects-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .effect-knob {
+      text-align: center;
+    }
+
+    .knob-visual {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      border: 3px solid rgba(255,255,255,0.2);
+      margin: 0 auto 0.5rem;
+      position: relative;
+      cursor: pointer;
+      transition: border-color 0.2s;
+    }
+
+    .knob-visual:hover {
+      border-color: var(--sage);
+    }
+
+    .knob-visual::after {
+      content: '';
+      position: absolute;
+      top: 5px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 4px;
+      height: 15px;
+      background: var(--coral);
+      border-radius: 2px;
+    }
+
+    .effect-knob h4 {
+      font-size: 0.75rem;
+      color: var(--graytext);
+      font-weight: 500;
+    }
+
+    .effect-knob span {
+      font-size: 0.875rem;
+      color: var(--cream);
+      font-family: 'Space Grotesk', sans-serif;
+    }
+
+    .library-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .library-item {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.75rem;
+      background: rgba(0,0,0,0.3);
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .library-item:hover {
+      background: rgba(255,255,255,0.05);
+    }
+
+    .library-item.playing {
+      background: rgba(185, 224, 142, 0.1);
+      border: 1px solid var(--sage);
+    }
+
+    .library-icon {
+      width: 40px;
+      height: 40px;
+      background: var(--dark);
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+    }
+
+    .library-info {
+      flex: 1;
+    }
+
+    .library-info h4 {
+      font-size: 0.875rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .library-info p {
+      font-size: 0.75rem;
+      color: var(--graytext);
+    }
+
+    .add-track-btn {
+      width: 100%;
+      padding: 1rem;
+      background: rgba(185, 224, 142, 0.1);
+      border: 2px dashed var(--sage);
+      color: var(--sage);
+      border-radius: 8px;
+      cursor: pointer;
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+
+    .add-track-btn:hover {
+      background: rgba(185, 224, 142, 0.2);
+    }
+
+    .mobile-menu-btn {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--cream);
+    }
+
+    @media (max-width: 968px) {
+      .studio-main {
+        grid-template-columns: 1fr;
+      }
+      .sidebar-panel {
+        display: none;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+      }
+      .mobile-menu-btn {
+        display: block;
+      }
+      .time-display {
+        font-size: 1.25rem;
+      }
+      .track-controls {
+        width: 100px;
+      }
+    }
+  </style>
 </head>
 <body>
-  <!-- Grain Overlay -->
-  <div class="grain-overlay"></div>
-
-  <!-- Navigation -->
   <nav>
-    <a href="dashboard.html" class="logo">Theirvoices</a>
-    <div class="nav-links">
-      <a href="profile.html" id="userName">User</a>
-      <a href="#" onclick="logout()" class="btn-primary">Logout</a>
+    <a href="index.html" class="logo">Theirvoices</a>
+    <div class="nav-right">
+      <div class="nav-links">
+        <a href="dashboard.html">Dashboard</a>
+        <a href="courses.html">Learn</a>
+        <a href="community.html">Community</a>
+        <a href="marketplace.html">Marketplace</a>
+      </div>
+      <button class="btn-secondary" onclick="saveProject()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path>
+          <polyline points="17 21 17 13 7 13 7 21"></polyline>
+          <polyline points="7 3 7 8 15 8"></polyline>
+        </svg>
+        Save
+      </button>
+      <div class="user-menu" onclick="window.location.href='profile.html'" style="cursor: pointer;">
+        <div style="width: 40px; height: 40px; border-radius: 50%; background: var(--sage); display: flex; align-items: center; justify-content: center; font-family: 'Space Grotesk', sans-serif; font-weight: 700; color: var(--dark);">AK</div>
+      </div>
+      <button class="mobile-menu-btn">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+      </button>
     </div>
   </nav>
 
-  <!-- Sidebar -->
-  <aside class="sidebar">
-    <nav class="sidebar-nav">
-      <a href="dashboard.html">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <rect x="3" y="3" width="7" height="7"></rect>
-          <rect x="14" y="3" width="7" height="7"></rect>
-          <rect x="14" y="14" width="7" height="7"></rect>
-          <rect x="3" y="14" width="7" height="7"></rect>
-        </svg>
-        Dashboard
-      </a>
-      <a href="courses.html">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
-          <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
-        </svg>
-        Courses
-      </a>
-      <a href="studio.html" class="active">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M9 18V5l12-2v13"></path>
-          <circle cx="6" cy="18" r="3"></circle>
-          <circle cx="18" cy="16" r="3"></circle>
-        </svg>
-        Studio
-      </a>
-      <a href="marketplace.html">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <circle cx="9" cy="21" r="1"></circle>
-          <circle cx="20" cy="21" r="1"></circle>
-          <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
-        </svg>
-        Marketplace
-      </a>
-      <a href="community.html">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-          <circle cx="9" cy="7" r="4"></circle>
-          <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
-          <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-        </svg>
-        Community
-      </a>
-      <a href="profile.html">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-          <circle cx="12" cy="7" r="4"></circle>
-        </svg>
-        Profile
-      </a>
-    </nav>
-  </aside>
-
-  <!-- Studio Container -->
-  <div class="studio-container">
+  <div class="studio">
     <div class="studio-header">
-      <h2 id="projectName">Untitled Project</h2>
-      <div class="studio-controls">
-        <button class="btn-secondary" onclick="saveProject()">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path>
-            <polyline points="17 21 17 13 7 13 7 21"></polyline>
-            <polyline points="7 3 7 8 15 8"></polyline>
-          </svg>
-          Save
+      <div class="project-info">
+        <h1>Untitled Project</h1>
+        <span>Last saved: Just now • 3 tracks</span>
+      </div>
+      <div class="transport-controls">
+        <button class="transport-btn stop" onclick="stopPlayback()">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="6" width="12" height="12"></rect></svg>
         </button>
-        <button class="btn-primary" onclick="exportProject()">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-            <polyline points="7 10 12 15 17 10"></polyline>
-            <line x1="12" y1="15" x2="12" y2="3"></line>
-          </svg>
-          Export
+        <button class="transport-btn play" onclick="togglePlay()">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
         </button>
+        <button class="transport-btn record" onclick="toggleRecord()">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="6"></circle></svg>
+        </button>
+        <div class="time-display" id="timeDisplay">00:00:00</div>
       </div>
     </div>
 
-    <!-- Tracks Panel -->
-    <div class="tracks-panel">
-      <h3>Tracks</h3>
-      <div id="tracksList">
-        <div class="track">
-          <div class="track-info">
-            <span>🎤 Track 1 - Vocals</span>
-          </div>
-          <div class="track-controls">
-            <button title="Mute">🔇</button>
-            <button title="Solo">👂</button>
+    <div class="studio-main">
+      <div class="timeline-area">
+        <div class="timeline-header">
+          <h3>Timeline</h3>
+          <div class="zoom-controls">
+            <button class="zoom-btn">-</button>
+            <button class="zoom-btn">Fit</button>
+            <button class="zoom-btn">+</button>
           </div>
         </div>
+
         <div class="track">
-          <div class="track-info">
-            <span>🥁 Track 2 - Drums</span>
-          </div>
           <div class="track-controls">
-            <button title="Mute">🔇</button>
-            <button title="Solo">👂</button>
+            <div class="track-header">
+              <div class="track-icon">🎤</div>
+              <span class="track-name">Vocals</span>
+            </div>
+            <div class="track-buttons">
+              <button class="track-btn mute">M</button>
+              <button class="track-btn active">S</button>
+              <button class="track-btn">🔒</button>
+            </div>
+          </div>
+          <div class="track-waveform">
+            <div class="waveform-visual"></div>
+            <div class="playhead"></div>
+          </div>
+        </div>
+
+        <div class="track">
+          <div class="track-controls">
+            <div class="track-header">
+              <div class="track-icon">🥁</div>
+              <span class="track-name">Drums</span>
+            </div>
+            <div class="track-buttons">
+              <button class="track-btn mute">M</button>
+              <button class="track-btn">S</button>
+              <button class="track-btn">🔒</button>
+            </div>
+          </div>
+          <div class="track-waveform">
+            <div class="waveform-visual" style="background: linear-gradient(90deg, var(--sage) 0%, var(--sage) 40%, transparent 40%);"></div>
+            <div class="playhead"></div>
+          </div>
+        </div>
+
+        <div class="track">
+          <div class="track-controls">
+            <div class="track-header">
+              <div class="track-icon">🎹</div>
+              <span class="track-name">Bass</span>
+            </div>
+            <div class="track-buttons">
+              <button class="track-btn mute">M</button>
+              <button class="track-btn">S</button>
+              <button class="track-btn">🔒</button>
+            </div>
+          </div>
+          <div class="track-waveform">
+            <div class="waveform-visual" style="background: linear-gradient(90deg, var(--sage) 0%, var(--sage) 75%, transparent 75%);"></div>
+            <div class="playhead"></div>
+          </div>
+        </div>
+
+        <button class="add-track-btn" onclick="addTrack()">+ Add Track</button>
+      </div>
+
+      <div class="sidebar-panel">
+        <div class="panel-section">
+          <h3>Effects</h3>
+          <div class="effects-grid">
+            <div class="effect-knob">
+              <div class="knob-visual"></div>
+              <h4>Reverb</h4>
+              <span>25%</span>
+            </div>
+            <div class="effect-knob">
+              <div class="knob-visual" style="transform: rotate(45deg);"></div>
+              <h4>Delay</h4>
+              <span>40%</span>
+            </div>
+            <div class="effect-knob">
+              <div class="knob-visual" style="transform: rotate(-30deg);"></div>
+              <h4>EQ</h4>
+              <span>15%</span>
+            </div>
+            <div class="effect-knob">
+              <div class="knob-visual" style="transform: rotate(60deg);"></div>
+              <h4>Comp</h4>
+              <span>60%</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel-section">
+          <h3>Sound Library</h3>
+          <div class="library-list">
+            <div class="library-item" onclick="previewSound(this)">
+              <div class="library-icon">▶</div>
+              <div class="library-info">
+                <h4>Afrobeats Drum Loop</h4>
+                <p>120 BPM • 8 bars</p>
+              </div>
+            </div>
+            <div class="library-item" onclick="previewSound(this)">
+              <div class="library-icon">▶</div>
+              <div class="library-info">
+                <h4>Piano Chords</h4>
+                <p>F Major • 4 bars</p>
+              </div>
+            </div>
+            <div class="library-item" onclick="previewSound(this)">
+              <div class="library-icon">▶</div>
+              <div class="library-info">
+                <h4>Bass Drop</h4>
+                <p>One shot • Heavy</p>
+              </div>
+            </div>
+            <div class="library-item" onclick="previewSound(this)">
+              <div class="library-icon">▶</div>
+              <div class="library-info">
+                <h4>Vocal Adlib</h4>
+                <p>FX • Female</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel-section">
+          <h3>Master Output</h3>
+          <div class="effect-knob" style="margin-top: 1rem;">
+            <div class="knob-visual" style="width: 80px; height: 80px; border-color: var(--coral);"></div>
+            <h4>Master Volume</h4>
+            <span>-6 dB</span>
           </div>
         </div>
       </div>
-      <button class="btn-secondary" onclick="addTrack()" style="width: 100%; margin-top: 1rem;">
-        + Add Track
-      </button>
-    </div>
-
-    <!-- Waveform Area -->
-    <div class="waveform-area">
-      <div>
-        <h3 style="color: #888; margin-bottom: 1rem;">🎵 Waveform Display</h3>
-        <p style="color: #666;">Click "Record" to start recording audio</p>
-        <p style="color: #666; font-size: 0.875rem; margin-top: 0.5rem;">Your recorded waveform will appear here</p>
-      </div>
-    </div>
-
-    <!-- Transport Controls -->
-    <div class="transport-controls">
-      <button class="control-btn" onclick="rewind()">⏮️</button>
-      <button class="control-btn" id="recordBtn" onclick="toggleRecord()">⏺️ Record</button>
-      <button class="control-btn" id="playBtn" onclick="togglePlay()">▶️ Play</button>
-      <button class="control-btn" onclick="stop()">⏹️ Stop</button>
-      <button class="control-btn" onclick="forward()">⏭️</button>
     </div>
   </div>
 
-  <script src="js/config.js"></script>
-  <script src="js/auth.js"></script>
   <script>
-    // Protect this page
-    protectPage();
-
-    // Get current user
-    const user = getCurrentUser();
-    if (user) {
-      document.getElementById('userName').textContent = getFirstName(user.name);
-    }
-
-    // Studio state
-    let isRecording = false;
     let isPlaying = false;
-    let trackCount = 2;
+    let isRecording = false;
+    let playheadPosition = 60;
+    let playbackInterval;
 
-    // Toggle record
-    function toggleRecord() {
-      isRecording = !isRecording;
-      const recordBtn = document.getElementById('recordBtn');
-      
-      if (isRecording) {
-        recordBtn.textContent = '⏹️ Stop Recording';
-        recordBtn.classList.add('recording');
-        alert('Recording started! (Demo mode - actual recording would happen here)');
-      } else {
-        recordBtn.textContent = '⏺️ Record';
-        recordBtn.classList.remove('recording');
-        alert('Recording stopped!');
-      }
-    }
-
-    // Toggle play
     function togglePlay() {
       isPlaying = !isPlaying;
-      const playBtn = document.getElementById('playBtn');
-      
+      const btn = document.querySelector('.transport-btn.play');
       if (isPlaying) {
-        playBtn.textContent = '⏸️ Pause';
-        alert('Playing... (Demo mode)');
+        btn.innerHTML = '<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect></svg>';
+        startPlayback();
       } else {
-        playBtn.textContent = '▶️ Play';
+        btn.innerHTML = '<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>';
+        stopPlayback();
       }
     }
 
-    // Stop
-    function stop() {
+    function startPlayback() {
+      playbackInterval = setInterval(() => {
+        playheadPosition += 0.5;
+        if (playheadPosition > 100) playheadPosition = 0;
+        updatePlayhead();
+        updateTimeDisplay();
+      }, 100);
+    }
+
+    function stopPlayback() {
       isPlaying = false;
-      isRecording = false;
-      document.getElementById('playBtn').textContent = '▶️ Play';
-      document.getElementById('recordBtn').textContent = '⏺️ Record';
-      document.getElementById('recordBtn').classList.remove('recording');
+      clearInterval(playbackInterval);
+      const btn = document.querySelector('.transport-btn.play');
+      btn.innerHTML = '<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>';
     }
 
-    // Rewind
-    function rewind() {
-      alert('Rewinding... (Demo mode)');
+    function toggleRecord() {
+      isRecording = !isRecording;
+      const btn = document.querySelector('.transport-btn.record');
+      if (isRecording) {
+        btn.style.background = '#ff4444';
+        btn.style.boxShadow = '0 0 20px rgba(209, 59, 59, 0.6)';
+        alert('Recording started! (Demo mode)');
+      } else {
+        btn.style.background = 'var(--coral)';
+        btn.style.boxShadow = 'none';
+        alert('Recording stopped! (Demo mode)');
+      }
     }
 
-    // Forward
-    function forward() {
-      alert('Fast forwarding... (Demo mode)');
+    function updatePlayhead() {
+      document.querySelectorAll('.playhead').forEach(playhead => {
+        playhead.style.left = playheadPosition + '%';
+      });
     }
 
-    // Add track
+    function updateTimeDisplay() {
+      const totalSeconds = Math.floor(playheadPosition * 2);
+      const minutes = Math.floor(totalSeconds / 60).toString().padStart(2, '0');
+      const seconds = (totalSeconds % 60).toString().padStart(2, '0');
+      const milliseconds = Math.floor((playheadPosition % 1) * 100).toString().padStart(2, '0');
+      document.getElementById('timeDisplay').textContent = `${minutes}:${seconds}:${milliseconds}`;
+    }
+
     function addTrack() {
-      trackCount++;
-      const tracksList = document.getElementById('tracksList');
-      
-      const newTrack = document.createElement('div');
-      newTrack.className = 'track';
-      newTrack.innerHTML = `
-        <div class="track-info">
-          <span>🎹 Track ${trackCount} - New Track</span>
-        </div>
-        <div class="track-controls">
-          <button title="Mute">🔇</button>
-          <button title="Solo">👂</button>
-        </div>
-      `;
-      
-      tracksList.appendChild(newTrack);
+      alert('Add track functionality - Would open track type selection');
     }
 
-    // Save project
+    function previewSound(element) {
+      document.querySelectorAll('.library-item').forEach(item => item.classList.remove('playing'));
+      element.classList.add('playing');
+      setTimeout(() => {
+        element.classList.remove('playing');
+      }, 1000);
+    }
+
     function saveProject() {
-      const user = getCurrentUser();
-      const projectsCreated = (user.projectsCreated || 0) + 1;
-      
-      updateCurrentUser({ projectsCreated });
-      
       alert('Project saved successfully!');
-    }
-
-    // Export project
-    function exportProject() {
-      alert('Exporting project as MP3... (Demo mode)\n\nIn the full version, this would export your audio as a downloadable file.');
     }
   </script>
 </body>

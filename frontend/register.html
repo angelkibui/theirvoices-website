@@ -3,110 +3,339 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Register - Theirvoices</title>
+  <title>Create Account - Theirvoices</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=Oswald:wght@400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/app.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --sage: #B9E08E;
+      --cream: #F6F3EA;
+      --coral: #D13B3B;
+      --dark: #111111;
+      --graytext: #3F3F3F;
+      --white: #FFFFFF;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--sage);
+      color: var(--dark);
+      line-height: 1.6;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+    }
+
+    .auth-page {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+
+    .auth-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      max-width: 1000px;
+      width: 100%;
+      background: var(--white);
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+    }
+
+    .auth-visual {
+      background: var(--dark);
+      padding: 4rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      color: var(--cream);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .auth-visual::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 10px,
+        rgba(185, 224, 142, 0.1) 10px,
+        rgba(185, 224, 142, 0.1) 20px
+      );
+      animation: slide 20s linear infinite;
+    }
+
+    @keyframes slide {
+      0% { transform: translate(0, 0); }
+      100% { transform: translate(50px, 50px); }
+    }
+
+    .auth-visual-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .auth-visual h2 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      color: var(--sage);
+    }
+
+    .auth-visual p {
+      opacity: 0.8;
+      line-height: 1.6;
+    }
+
+    .auth-form {
+      padding: 4rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+
+    .auth-form h1 {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .auth-form > p {
+      color: var(--graytext);
+      margin-bottom: 2rem;
+    }
+
+    .form-group {
+      margin-bottom: 1.25rem;
+    }
+
+    .form-group label {
+      display: block;
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 500;
+      font-size: 0.875rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .form-group input,
+    .form-group select {
+      width: 100%;
+      padding: 0.875rem 1rem;
+      border: 1px solid rgba(17, 17, 17, 0.1);
+      border-radius: 6px;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.9375rem;
+      background: var(--cream);
+      transition: border-color 0.2s;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus {
+      outline: none;
+      border-color: var(--coral);
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.875rem 1.5rem;
+      background: var(--coral);
+      color: white;
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 600;
+      font-size: 0.875rem;
+      border-radius: 6px;
+      text-decoration: none;
+      transition: transform 0.2s, box-shadow 0.2s;
+      border: none;
+      cursor: pointer;
+      width: 100%;
+      margin-top: 1rem;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(209, 59, 59, 0.3);
+    }
+
+    .auth-switch {
+      text-align: center;
+      margin-top: 2rem;
+      font-size: 0.9rem;
+      color: var(--graytext);
+    }
+
+    .auth-switch a {
+      color: var(--coral);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .checkbox-group {
+      display: flex;
+      align-items: start;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+    }
+
+    .checkbox-group input[type="checkbox"] {
+      width: auto;
+      margin-top: 0.25rem;
+    }
+
+    .checkbox-group label {
+      font-size: 0.875rem;
+      color: var(--graytext);
+      line-height: 1.4;
+    }
+
+    .back-link {
+      position: absolute;
+      top: 2rem;
+      left: 2rem;
+      color: var(--dark);
+      text-decoration: none;
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    @media (max-width: 768px) {
+      .auth-container {
+        grid-template-columns: 1fr;
+      }
+      .auth-visual {
+        display: none;
+      }
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
 </head>
 <body>
-  <!-- Grain Overlay -->
-  <div class="grain-overlay"></div>
+  <a href="index.html" class="back-link">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <line x1="19" y1="12" x2="5" y2="12"></line>
+      <polyline points="12 19 5 12 12 5"></polyline>
+    </svg>
+    Back to home
+  </a>
 
-  <!-- Navigation -->
-  <nav>
-    <a href="index.html" class="logo">Theirvoices</a>
-    <div class="nav-links">
-      <a href="index.html">Home</a>
-      <a href="login.html">Login</a>
-    </div>
-  </nav>
+  <div class="auth-page">
+    <div class="auth-container">
+      <div class="auth-visual">
+        <div class="auth-visual-content">
+          <h2>Start creating</h2>
+          <p>Join our community of African women in music. Get access to courses, tools, and a supportive network to grow your craft.</p>
+        </div>
+      </div>
+      <div class="auth-form">
+        <h1>Create Account</h1>
+        <p>Begin your music production journey</p>
+        
+        <form onsubmit="handleRegister(event)">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="firstname">First Name</label>
+              <input type="text" id="firstname" name="firstname" required>
+            </div>
+            <div class="form-group">
+              <label for="lastname">Last Name</label>
+              <input type="text" id="lastname" name="lastname" required>
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" name="email" placeholder="you@example.com" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="phone">Phone Number</label>
+            <input type="tel" id="phone" name="phone" placeholder="+254 700 000 000" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="country">Country</label>
+            <select id="country" name="country" required>
+              <option value="">Select your country</option>
+              <option value="ke">Kenya</option>
+              <option value="ng">Nigeria</option>
+              <option value="gh">Ghana</option>
+              <option value="za">South Africa</option>
+              <option value="ug">Uganda</option>
+              <option value="tz">Tanzania</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+          
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" placeholder="Min 8 characters" required>
+          </div>
+          
+          <div class="checkbox-group">
+            <input type="checkbox" id="terms" name="terms" required>
+            <label for="terms">I agree to the Terms of Service and Privacy Policy. I confirm I am 16 years or older.</label>
+          </div>
+          
+          <div class="checkbox-group">
+            <input type="checkbox" id="newsletter" name="newsletter">
+            <label for="newsletter">Send me updates about courses, community events, and opportunities.</label>
+          </div>
+          
+          <button type="submit" class="btn-primary">
+            Create Account
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </button>
+        </form>
 
-  <!-- Register Container -->
-  <div class="auth-container">
-    <div class="auth-box">
-      <h2>Join Theirvoices</h2>
-      <p>Start creating and sharing your music</p>
-      
-      <div class="error-message" id="errorMessage"></div>
-      <div class="success-message" id="successMessage"></div>
-      
-      <form id="registerForm">
-        <div class="form-group">
-          <label for="name">Full Name</label>
-          <input type="text" id="name" name="name" placeholder="Your name" required>
+        <div class="auth-switch">
+          Already have an account? <a href="login.html">Sign in</a>
         </div>
-        
-        <div class="form-group">
-          <label for="email">Email</label>
-          <input type="email" id="email" name="email" placeholder="your@email.com" required>
-        </div>
-        
-        <div class="form-group">
-          <label for="password">Password</label>
-          <input type="password" id="password" name="password" placeholder="Create a password (min 6 characters)" minlength="6" required>
-        </div>
-        
-        <div class="form-group">
-          <label for="role">I want to</label>
-          <select id="role" name="role" required>
-            <option value="learner">Learn music production</option>
-            <option value="creator">Create and sell music</option>
-            <option value="mentor">Mentor others</option>
-          </select>
-        </div>
-        
-        <button type="submit" class="btn-primary" style="width: 100%;">
-          Create account
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <line x1="5" y1="12" x2="19" y2="12"></line>
-            <polyline points="12 5 19 12 12 19"></polyline>
-          </svg>
-        </button>
-      </form>
-      
-      <div class="auth-link">
-        Already have an account? <a href="login.html">Sign in</a>
       </div>
     </div>
   </div>
-    <a href="index.html" style="display:inline-block; margin-top:20px;">
-  ← Back to Home
-    </a>
 
-  <script src="js/config.js"></script>
-  <script src="js/auth.js"></script>
   <script>
-    // Redirect if already logged in
-    redirectIfLoggedIn();
-
-    // Handle form submission
-    document.getElementById('registerForm').addEventListener('submit', function(e) {
+    function handleRegister(e) {
       e.preventDefault();
-      
-      const name = document.getElementById('name').value;
-      const email = document.getElementById('email').value;
-      const password = document.getElementById('password').value;
-      const role = document.getElementById('role').value;
-      const errorMessage = document.getElementById('errorMessage');
-      const successMessage = document.getElementById('successMessage');
-      
-      const result = register(name, email, password, role);
-      
-      if (result.success) {
-        successMessage.textContent = result.message + ' Redirecting to login...';
-        successMessage.style.display = 'block';
-        errorMessage.style.display = 'none';
-        
-        setTimeout(() => {
-          window.location.href = 'login.html';
-        }, 1500);
-      } else {
-        errorMessage.textContent = result.message;
-        errorMessage.style.display = 'block';
-        successMessage.style.display = 'none';
-      }
-    });
+      alert('Welcome to Theirvoices! Your account has been created.');
+      window.location.href = 'dashboard.html';
+    }
   </script>
 </body>
 </html>

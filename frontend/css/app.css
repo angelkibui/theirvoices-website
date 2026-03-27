@@ -253,21 +253,23 @@ nav {
 }
 
 .sidebar {
-  width: 200px;
-  background: white;
-  padding: 1.5rem 0.75rem;
-  box-shadow: 0 0 20px rgba(0,0,0,0.05);
+  width: 260px;
+  background: white !important;
+  padding: 2rem 1rem;
   position: fixed;
-  top: 4.5rem;
-  bottom: 0;
+  top: 70px;
   left: 0;
+  height: calc(100vh - 70px);
   overflow-y: auto;
+  box-shadow: 0 0 20px rgba(0,0,0,0.05);
 }
 
 .sidebar-nav {
   display: flex;
   flex-direction: column;
   gap: 0.35rem;
+  align-items: flex-start; /* THIS FIXES CENTERING */
+  gap: 0.5rem;
 }
 
 .sidebar-nav a {
@@ -292,10 +294,10 @@ nav {
 
 .main-content {
   flex: 1;
-  margin-left: 200px;
+  margin-left: 260px;
   padding: 2rem 4vw;
   background: var(--cream);
-  min-height: calc(100vh - 4.5rem);
+  min-height: calc(100vh - 70px);
 }
 
 .page-header {
@@ -434,7 +436,7 @@ nav {
   min-height: calc(100vh - 4.5rem);
   color: white;
   padding: 2rem;
-  margin-left: 200px;
+  margin-left: 260px;
   padding-top: calc(4.5rem + 2rem);
 }
 
@@ -563,9 +565,10 @@ nav {
   padding: 2rem;
   border-radius: 8px;
   box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-  margin-bottom: 2
+  margin-bottom: 2rem;
+}
 
-  body {
+body {
   padding-top: 70px;
 }
 

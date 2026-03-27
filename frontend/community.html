@@ -7,198 +7,510 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=Oswald:wght@400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/app.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --sage: #B9E08E;
+      --cream: #F6F3EA;
+      --coral: #D13B3B;
+      --dark: #111111;
+      --graytext: #3F3F3F;
+      --white: #FFFFFF;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--cream);
+      color: var(--dark);
+      line-height: 1.6;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+    }
+
+    .micro-label {
+      font-family: 'Oswald', sans-serif;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--graytext);
+    }
+
+    /* Navigation */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      padding: 1rem 4vw;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(246, 243, 234, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+    }
+
+    .logo {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 1.25rem;
+      color: var(--dark);
+      text-decoration: none;
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    .nav-links a {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 500;
+      font-size: 0.875rem;
+      color: var(--dark);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--coral);
+    }
+
+    .user-menu {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      cursor: pointer;
+    }
+
+    .user-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--sage);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      color: var(--dark);
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.5rem;
+      background: var(--coral);
+      color: white;
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 600;
+      font-size: 0.875rem;
+      border-radius: 6px;
+      text-decoration: none;
+      transition: transform 0.2s, box-shadow 0.2s;
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(209, 59, 59, 0.3);
+    }
+
+    /* Community Layout */
+    .community {
+      min-height: 100vh;
+      padding-top: 6rem;
+    }
+
+    .community-header {
+      background: var(--sage);
+      padding: 4rem 4vw;
+      text-align: center;
+    }
+
+    .community-header h1 {
+      font-size: clamp(34px, 4vw, 56px);
+      margin-bottom: 1rem;
+    }
+
+    .community-header p {
+      font-size: 1.25rem;
+      opacity: 0.8;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .topics-nav {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 2rem;
+    }
+
+    .topic-btn {
+      padding: 0.75rem 1.5rem;
+      border: 2px solid var(--dark);
+      background: transparent;
+      color: var(--dark);
+      border-radius: 30px;
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .topic-btn:hover,
+    .topic-btn.active {
+      background: var(--dark);
+      color: var(--cream);
+    }
+
+    .community-container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 3rem 4vw;
+    }
+
+    .new-post {
+      background: var(--white);
+      padding: 1.5rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+      margin-bottom: 2rem;
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+    }
+
+    .new-post-input {
+      flex: 1;
+      padding: 1rem 1.5rem;
+      border: 1px solid rgba(0,0,0,0.1);
+      border-radius: 30px;
+      font-family: 'Inter', sans-serif;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: border-color 0.2s;
+    }
+
+    .new-post-input:hover {
+      border-color: var(--sage);
+    }
+
+    .discussion-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .discussion-card {
+      background: var(--white);
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+      transition: transform 0.2s;
+    }
+
+    .discussion-card:hover {
+      transform: translateY(-2px);
+    }
+
+    .discussion-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: start;
+      margin-bottom: 1rem;
+    }
+
+    .discussion-author {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .author-avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: var(--sage);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      color: var(--dark);
+      font-size: 1.25rem;
+    }
+
+    .author-info h4 {
+      font-size: 1rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .author-info span {
+      font-size: 0.875rem;
+      color: var(--graytext);
+    }
+
+    .discussion-tag {
+      padding: 0.5rem 1rem;
+      background: var(--sage);
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-family: 'Oswald', sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .discussion-content h3 {
+      font-size: 1.25rem;
+      margin-bottom: 0.75rem;
+      cursor: pointer;
+    }
+
+    .discussion-content h3:hover {
+      color: var(--coral);
+    }
+
+    .discussion-content p {
+      color: var(--graytext);
+      line-height: 1.6;
+    }
+
+    .discussion-stats {
+      display: flex;
+      gap: 2rem;
+      margin-top: 1.5rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid rgba(0,0,0,0.1);
+    }
+
+    .stat {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.875rem;
+      color: var(--graytext);
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+
+    .stat:hover {
+      color: var(--coral);
+    }
+
+    .mobile-menu-btn {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+      }
+      .mobile-menu-btn {
+        display: block;
+      }
+      .topics-nav {
+        padding: 0 1rem;
+      }
+    }
+  </style>
 </head>
 <body>
-  <!-- Grain Overlay -->
-  <div class="grain-overlay"></div>
-
-  <!-- Navigation -->
   <nav>
-    <a href="dashboard.html" class="logo">Theirvoices</a>
-    <div class="nav-links">
-      <a href="profile.html" id="userName">User</a>
-      <a href="#" onclick="logout()" class="btn-primary">Logout</a>
+    <a href="index.html" class="logo">Theirvoices</a>
+    <div class="nav-right">
+      <div class="nav-links">
+        <a href="dashboard.html">Dashboard</a>
+        <a href="courses.html">Learn</a>
+        <a href="studio.html">Studio</a>
+        <a href="marketplace.html">Marketplace</a>
+      </div>
+      <div class="user-menu" onclick="window.location.href='profile.html'">
+        <div class="user-avatar">AK</div>
+      </div>
+      <button class="mobile-menu-btn">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+      </button>
     </div>
   </nav>
 
-  <!-- Dashboard -->
-  <div class="dashboard">
-    <!-- Sidebar -->
-    <aside class="sidebar">
-      <nav class="sidebar-nav">
-        <a href="dashboard.html">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <rect x="3" y="3" width="7" height="7"></rect>
-            <rect x="14" y="3" width="7" height="7"></rect>
-            <rect x="14" y="14" width="7" height="7"></rect>
-            <rect x="3" y="14" width="7" height="7"></rect>
-          </svg>
-          Dashboard
-        </a>
-        <a href="courses.html">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
-            <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
-          </svg>
-          Courses
-        </a>
-        <a href="studio.html">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M9 18V5l12-2v13"></path>
-            <circle cx="6" cy="18" r="3"></circle>
-            <circle cx="18" cy="16" r="3"></circle>
-          </svg>
-          Studio
-        </a>
-        <a href="marketplace.html">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="9" cy="21" r="1"></circle>
-            <circle cx="20" cy="21" r="1"></circle>
-            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
-          </svg>
-          Marketplace
-        </a>
-        <a href="community.html" class="active">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-            <circle cx="9" cy="7" r="4"></circle>
-            <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
-            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-          </svg>
-          Community
-        </a>
-        <a href="profile.html">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-            <circle cx="12" cy="7" r="4"></circle>
-          </svg>
-          Profile
-        </a>
-      </nav>
-    </aside>
+  <div class="community">
+    <div class="community-header">
+      <span class="micro-label">03 / CONNECT</span>
+      <h1>Community</h1>
+      <p>Connect with fellow creators, share your work, get feedback, and grow together.</p>
+      <div class="topics-nav">
+        <button class="topic-btn active">All</button>
+        <button class="topic-btn">Showcase</button>
+        <button class="topic-btn">Feedback</button>
+        <button class="topic-btn">Collaboration</button>
+        <button class="topic-btn">Questions</button>
+        <button class="topic-btn">Mentorship</button>
+      </div>
+    </div>
 
-    <!-- Main Content -->
-    <main class="main-content">
-      <div class="page-header">
-        <h1>Community</h1>
-        <p>Connect, collaborate, and grow together</p>
+    <div class="community-container">
+      <div class="new-post">
+        <div class="user-avatar" style="width: 40px; height: 40px; font-size: 1rem;">AK</div>
+        <input type="text" class="new-post-input" placeholder="Share your work or ask a question..." onclick="alert('Create post modal would open here')">
+        <button class="btn-primary">Post</button>
       </div>
 
-      <!-- Tabs -->
-      <div class="community-tabs">
-        <button class="active">Recent Posts</button>
-        <button>Collaborations</button>
-        <button>Questions</button>
-      </div>
-
-      <!-- Create Post Button -->
-      <button class="btn-primary" onclick="createPost()" style="margin-bottom: 2rem;">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <line x1="12" y1="5" x2="12" y2="19"></line>
-          <line x1="5" y1="12" x2="19" y2="12"></line>
-        </svg>
-        Create Post
-      </button>
-
-      <!-- Posts Feed -->
-      <div id="postsFeed">
-        <!-- Posts will be loaded here -->
-      </div>
-    </main>
-  </div>
-
-  <script src="js/config.js"></script>
-  <script src="js/auth.js"></script>
-  <script>
-    // Protect this page
-    protectPage();
-
-    // Get current user
-    const user = getCurrentUser();
-    if (user) {
-      document.getElementById('userName').textContent = getFirstName(user.name);
-    }
-
-    // Load posts
-    function loadPosts() {
-      const postsStr = localStorage.getItem(CONFIG.POSTS_KEY);
-      const posts = postsStr ? JSON.parse(postsStr) : SAMPLE_POSTS;
-      
-      const postsFeed = document.getElementById('postsFeed');
-      postsFeed.innerHTML = '';
-      
-      posts.forEach(post => {
-        const postCard = document.createElement('div');
-        postCard.className = 'post-card';
-        
-        postCard.innerHTML = `
-          <div class="post-header">
-            <div class="post-avatar">${post.avatar}</div>
-            <div class="post-author">
-              <div class="post-author-name">${post.author}</div>
-              <div class="post-time">${post.time}</div>
+      <div class="discussion-list">
+        <div class="discussion-card">
+          <div class="discussion-header">
+            <div class="discussion-author">
+              <div class="author-avatar">MN</div>
+              <div class="author-info">
+                <h4>Mary Njoroge</h4>
+                <span>2 hours ago • Nairobi, Kenya</span>
+              </div>
             </div>
+            <span class="discussion-tag">Showcase</span>
           </div>
-          <div class="post-content">${post.content}</div>
-          <div class="post-actions">
-            <div class="post-action">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
-              </svg>
-              ${post.likes} likes
-            </div>
-            <div class="post-action">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
-              </svg>
-              ${post.comments} comments
-            </div>
-            <div class="post-action">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <circle cx="18" cy="5" r="3"></circle>
-                <circle cx="6" cy="12" r="3"></circle>
-                <circle cx="18" cy="19" r="3"></circle>
-                <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
-                <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
-              </svg>
+          <div class="discussion-content">
+            <h3>Just finished my first Amapiano beat! 🎹</h3>
+            <p>After 3 weeks of learning on this platform, I finally completed my first track. Would love your feedback on the bassline - does it hit right?</p>
+          </div>
+          <div class="discussion-stats">
+            <span class="stat">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+              24 likes
+            </span>
+            <span class="stat">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+              8 comments
+            </span>
+            <span class="stat">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
               Share
-            </div>
+            </span>
           </div>
-        `;
-        
-        postsFeed.appendChild(postCard);
-      });
-    }
+        </div>
 
-    // Create post
-    function createPost() {
-      const content = prompt('What would you like to share with the community?');
-      
-      if (content && content.trim()) {
-        const user = getCurrentUser();
-        const postsStr = localStorage.getItem(CONFIG.POSTS_KEY);
-        const posts = postsStr ? JSON.parse(postsStr) : SAMPLE_POSTS;
-        
-        const newPost = {
-          id: Date.now().toString(),
-          author: user.name,
-          avatar: getUserInitials(user.name)[0],
-          time: 'Just now',
-          content: content,
-          likes: 0,
-          comments: 0
-        };
-        
-        posts.unshift(newPost);
-        localStorage.setItem(CONFIG.POSTS_KEY, JSON.stringify(posts));
-        
-        loadPosts();
-      }
-    }
+        <div class="discussion-card">
+          <div class="discussion-header">
+            <div class="discussion-author">
+              <div class="author-avatar" style="background: var(--coral); color: white;">AO</div>
+              <div class="author-info">
+                <h4>Amara Okafor</h4>
+                <span>5 hours ago • Lagos, Nigeria</span>
+              </div>
+            </div>
+            <span class="discussion-tag">Feedback</span>
+          </div>
+          <div class="discussion-content">
+            <h3>Need help with mixing vocals</h3>
+            <p>My vocals sound muddy in the mix. I've tried EQ but something's still off. Any advice on frequency ranges to focus on for clarity?</p>
+          </div>
+          <div class="discussion-stats">
+            <span class="stat">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+              15 likes
+            </span>
+            <span class="stat">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+              12 comments
+            </span>
+            <span class="stat">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
+              Share
+            </span>
+          </div>
+        </div>
 
-    // Load posts on page load
-    loadPosts();
-  </script>
+        <div class="discussion-card">
+          <div class="discussion-header">
+            <div class="discussion-author">
+              <div class="author-avatar" style="background: var(--dark); color: var(--sage);">ZM</div>
+              <div class="author-info">
+                <h4>Zara Mensah</h4>
+                <span>1 day ago • Accra, Ghana</span>
+              </div>
+            </div>
+            <span class="discussion-tag">Collaboration</span>
+          </div>
+          <div class="discussion-content">
+            <h3>Looking for a vocalist for my Highlife fusion track</h3>
+            <p>Working on a modern Highlife beat and need soulful vocals. Male or female, doesn't matter. The track is in F major, 110 BPM. DM if interested!</p>
+          </div>
+          <div class="discussion-stats">
+            <span class="stat">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+              32 likes
+            </span>
+            <span class="stat">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+              18 comments
+            </span>
+            <span class="stat">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
+              Share
+            </span>
+          </div>
+        </div>
+
+        <div class="discussion-card">
+          <div class="discussion-header">
+            <div class="discussion-author">
+              <div class="author-avatar">TK</div>
+              <div class="author-info">
+                <h4>Teacher Kofi</h4>
+                <span>2 days ago • Mentor</span>
+              </div>
+            </div>
+            <span class="discussion-tag" style="background: var(--coral); color: white;">Mentorship</span>
+          </div>
+          <div class="discussion-content">
+            <h3>Monthly Masterclass: Creating Catchy Hooks</h3>
+            <p>Join me this Saturday for a live session on writing memorable hooks. We'll analyze popular Afrobeats tracks and break down what makes them stick. Limited spots available!</p>
+          </div>
+          <div class="discussion-stats">
+            <span class="stat">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+              56 likes
+            </span>
+            <span class="stat">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+              24 comments
+            </span>
+            <span class="stat">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
+              Share
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </body>
 </html>
